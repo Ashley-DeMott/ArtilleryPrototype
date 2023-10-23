@@ -1,6 +1,6 @@
 /*************************************************************
  * 1. Name:
- *      The Key
+ *      Ashley DeMott and Jason Geppelt
  * 2. Assignment Name:
  *      Lab 08: M777 Howitzer
  * 3. Assignment Description:
