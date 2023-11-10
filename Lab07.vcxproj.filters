@@ -56,6 +56,15 @@
     <ClInclude Include="testGround.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testProjectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testSimulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,8 +1,8 @@
 /*************************************************************
  * 1. Name:
- *      The Key
+ *      Ashley DeMott and Jason Geppelt
  * 2. Assignment Name:
- *      Lab 08: M777 Howitzer
+ *      Lab 09: M777 Howitzer - Unit Tests
  * 3. Assignment Description:
  *      Simulate firing the M777 howitzer 15mm artillery piece
  * 4. What was the hardest part? Be as specific as possible.
@@ -16,6 +16,7 @@
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "ground.h"     // for GROUND
 #include "position.h"   // for POSITION
+#include "test.h"
 using namespace std;
 
 /*************************************************************************
@@ -145,6 +146,9 @@ int WINAPI wWinMain(
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
+    // Run the tests
+    testRunner();
+
    // Initialize OpenGL
    Position ptUpperRight;
    ptUpperRight.setPixelsX(700.0);
@@ -159,7 +163,6 @@ int main(int argc, char** argv)
 
    // set everything into action
    ui.run(callBack, &demo);
-
 
    return 0;
 }
