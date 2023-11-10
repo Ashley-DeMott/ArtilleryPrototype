@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="position.cpp">
+    <ClCompile Include="positionOld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="test.cpp">
@@ -36,12 +36,18 @@
     <ClCompile Include="projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Angle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="twoDValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="position.h">
+    <ClInclude Include="positionOld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="test.h">
@@ -65,10 +71,19 @@
     <ClInclude Include="testProjectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="testSimulator.h">
+    <ClInclude Include="testAngle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="testAngle.h">
+    <ClInclude Include="twoDValue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="velocity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="position.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Angle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
