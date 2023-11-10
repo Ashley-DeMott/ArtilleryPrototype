@@ -10,6 +10,7 @@
 #include "test.h"
 #include "testPosition.h"
 #include "testGround.h"
+#include "testProjectile.h"
 
 /*****************************************************************
  * TEST RUNNER
@@ -19,4 +20,5 @@ void testRunner()
 {
    TestPosition().run();
    TestGround().run();
+   TestProjectile().run();
 }
