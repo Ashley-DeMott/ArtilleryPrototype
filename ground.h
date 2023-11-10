@@ -6,7 +6,6 @@
  * Summary:
  *    Everything about the ground
  ************************************************************************/
-
 #pragma once
 
 #include "position.h"   // for Point

@@ -15,8 +15,6 @@
 #include <cmath>
 
 class TestPosition;
-class Acceleration;
-class Velocity;
 
 /*********************************************
  * Position
@@ -87,5 +85,3 @@ struct PT
    double x;
    double y;
 };
-
-

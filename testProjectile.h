@@ -2,7 +2,7 @@
  * Header File:
  *    Test Projectile : Test the Projectile class
  * Author:
- *    Ashley DeMott, 
+ *    Ashley DeMott, Jason Geppelt
  * Summary:
  *    All the unit tests for the Projectile class
  ************************************************************************/

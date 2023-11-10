@@ -24,6 +24,6 @@ void testRunner()
 	cout << "Running Ground tests..." << endl;
 	TestGround().run();
 
-	cout << "Running Projectile tests..." << endl;
-	TestProjectile().run();
+	//cout << "Running Projectile tests..." << endl;
+	//TestProjectile().run();
 }

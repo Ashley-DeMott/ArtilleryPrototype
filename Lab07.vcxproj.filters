@@ -65,6 +65,9 @@
     <ClInclude Include="testSimulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="testAngle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

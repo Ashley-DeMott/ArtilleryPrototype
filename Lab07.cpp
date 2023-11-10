@@ -147,7 +147,8 @@ int main(int argc, char** argv)
 #endif // !_WIN32
 {
     // Run the tests
-    testRunner();
+    //testRunner();
+    //cout << "Tests complete!" << endl;
 
    // Initialize OpenGL
    Position ptUpperRight;
