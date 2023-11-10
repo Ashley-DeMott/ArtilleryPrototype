@@ -154,6 +154,7 @@
     <ClInclude Include="testGround.h" />
     <ClInclude Include="testPosition.h" />
     <ClInclude Include="testProjectile.h" />
+    <ClInclude Include="testSimulator.h" />
     <ClInclude Include="uiDraw.h" />
     <ClInclude Include="uiInteract.h" />
   </ItemGroup>
