@@ -48,8 +48,8 @@ private:
 		// Verify
 		assert(defaultProj.currentPos.getMetersX() == 0.0);
 		assert(defaultProj.currentPos.getMetersY() == 0.0);
-		assert(defaultProj.velocity.getMetersX() == 827.0);
-		assert(defaultProj.velocity.getMetersY() == 0.0);
+		assert(defaultProj.velocity.getMetersX() == 584.8);
+		assert(defaultProj.velocity.getMetersY() == 584.8);
 
 		// Teardown not needed
 	}

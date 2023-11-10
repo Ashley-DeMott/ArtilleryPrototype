@@ -139,8 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Angle.cpp" />
+    <ClCompile Include="angle.cpp" />
     <ClCompile Include="ground.cpp" />
+    <ClCompile Include="howitzer.cpp" />
     <ClCompile Include="Lab07.cpp" />
     <ClCompile Include="twoDValue.cpp" />
     <ClCompile Include="positionOld.cpp" />
@@ -150,7 +151,8 @@
     <ClCompile Include="uiInteract.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Angle.h" />
+    <ClInclude Include="angle.h" />
+    <ClInclude Include="howitzer.h" />
     <ClInclude Include="twoDValue.h" />
     <ClInclude Include="ground.h" />
     <ClInclude Include="positionOld.h" />

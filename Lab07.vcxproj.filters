@@ -36,10 +36,13 @@
     <ClCompile Include="projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Angle.cpp">
+    <ClCompile Include="angle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="twoDValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="howitzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +86,10 @@
     <ClInclude Include="position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Angle.h">
+    <ClInclude Include="angle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="howitzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

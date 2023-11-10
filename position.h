@@ -51,7 +51,8 @@ public:
         Angle angle = Angle();
         angle.setRadians(radiansFromXY(x, y));
 
-        //setX
+        setMetersX(computeVelocity(x, a.getMetersX(), t));
+        setMetersY(computeVelocity(y, a.getMetersY(), t));
     }
 
     // Calculate the new velocity using the equation v = v + a t
