@@ -9,7 +9,7 @@
 #pragma once
 
 #include <iostream>
-#include "position.h"
+#include "positionOld.h"
 #include <cassert>
 
 using namespace std;

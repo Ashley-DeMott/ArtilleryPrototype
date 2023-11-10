@@ -11,7 +11,7 @@
 #include "testPosition.h"
 #include "testGround.h"
 #include "testProjectile.h"
-#include "testSimulator.h"
+#include "testAngle.h"
 
 /*****************************************************************
  * TEST RUNNER
@@ -28,6 +28,6 @@ void testRunner()
 	cout << "Running Projectile tests..." << endl;
 	TestProjectile().run();
 
-	cout << "Running Simulator tests..." << endl;
-	TestSimulator().run();
+	cout << "Running Angle tests..." << endl;
+	TestAngle().run();
 }

@@ -1,87 +1,72 @@
-/***********************************************************************
- * Header File:
- *    Point : The representation of a position 
- * Author:
- *    Br. Helfrich
- * Summary:
- *    Everything we need to know about a location on the screen
- *    or the location on the field.
- ************************************************************************/
-
-
 #pragma once
+#include "twoDValue.h"
+#include "angle.h"
 
-#include <iostream> 
-#include <cmath>
-
-class TestPosition;
-
-/*********************************************
- * Position
- * A single position on the field in Meters  
- *********************************************/
-class Position
+class Position : public TwoDValue
 {
 public:
-   friend TestPosition;
-   
-   // constructors
-   Position()            : x(0.0), y(0.0)  {}
-   Position(double x, double y);
-   Position(const Position & pt) : x(pt.x), y(pt.y) {}
-   Position& operator = (const Position& pt);
+    // constructors
+    Position() : TwoDValue(0.0, 0.0) {}
+    Position(double x, double y) : TwoDValue(x, y) {}
+    Position(const Position& pt) : TwoDValue(pt) {}
+    Position& operator = (const Position& pt);
 
-   // getters
-   double getMetersX()       const { return x;                    }
-   double getMetersY()       const { return y;                    }
-   double getPixelsX()       const { return x / metersFromPixels; }
-   double getPixelsY()       const { return y / metersFromPixels; }
+    void update(Velocity v, TwoDValue a, double t) {
 
-   // setters
-   void setMeters(double xMeters, double yMeters) {x = xMeters; y = yMeters; }
-   void setMetersX(double xMeters)       { x = xMeters;           }
-   void setMetersY(double yMeters)       { y = yMeters;           }
-   void setPixelsX(double xPixels)       { x = xPixels * metersFromPixels;          }
-   void setPixelsY(double yPixels)       { y = yPixels * metersFromPixels;          }
-   void addMetersX(double dxMeters)      { setMetersX(getMetersX() + dxMeters);     }
-   void addMetersY(double dyMeters)      { setMetersY(getMetersY() + dyMeters);     }
-   void addPixelsX(double dxPixels)      { setPixelsX(getPixelsX() + dxPixels);     }
-   void addPixelsY(double dyPixels)      { setPixelsY(getPixelsY() + dyPixels);     }
+    }
 
-   // deal with the ratio of meters to pixels
-   void setZoom(double metersFromPixels)
-   {
-      this->metersFromPixels = metersFromPixels;
-   }
-   double getZoom() const { return metersFromPixels; }
+    // Calculate the new position using the equation s = s + v t + 1/2 a t^2
+    static double updatePosition(double s, double v, double a, double t) {
+        return s + (v * t) + 0.5 * a * (t * t);
+    }
 
-private:
-   double x;                 // horizontal position
-   double y;                 // vertical position
-   static double metersFromPixels;
+    /*********************************************
+     * COMPUTE DISTANCE
+     * Find the distance between two Positions
+     *********************************************/
+    static inline double computeDistance(const Position& pos1, const Position& pos2)
+    {
+        return sqrt((pos1.getMetersX() - pos2.getMetersX()) * (pos1.getMetersX() - pos2.getMetersX()) +
+            (pos1.getMetersY() - pos2.getMetersY()) * (pos1.getMetersY() - pos2.getMetersY()));
+    }    
 };
 
-/*********************************************
- * COMPUTE DISTANCE
- * Find the distance between two positions
- *********************************************/
-inline double computeDistance(const Position& pos1, const Position& pos2)
+// Stores horizontal and vertical velocity
+class Velocity : public TwoDValue 
 {
-   return sqrt((pos1.getMetersX() - pos2.getMetersX()) * (pos1.getMetersX() - pos2.getMetersX()) +
-               (pos1.getMetersY() - pos2.getMetersY()) * (pos1.getMetersY() - pos2.getMetersY()));
-}
+public:
+    // constructors
+    Velocity() : TwoDValue(0.0, 0.0) {}
+    Velocity(double total, Angle a) { updateXY(total, a); }
+    Velocity(double x, double y) : TwoDValue(x, y) {}
+    Velocity(const Velocity& pt) : TwoDValue(pt) {}
+    Velocity& operator = (const Velocity& pt);
 
-// stream I/O useful for debugging
-std::ostream & operator << (std::ostream & out, const Position& pt);
-std::istream & operator >> (std::istream & in,        Position& pt);
+    // Get this Velocity's Angle of direction
+    double getAngle() {
+        return radiansFromXY(x, y);
+    }
 
+    void update(TwoDValue a, double t) {
+        Angle angle = Angle();
+        angle.setRadians(radiansFromXY(x, y));
 
-/*********************************************
- * PT
- * Trivial point
- *********************************************/
-struct PT
-{
-   double x;
-   double y;
+        //setX
+    }
+
+    // Calculate the new velocity using the equation v = v + a t
+    static double computeVelocity(double v, double a, double t) {
+        return v + a * t;
+    }
+
+    // Get the Angle of direction (in radians) for the total given the x and y values
+    static double radiansFromXY(double x, double y) {
+        return atan2(x, y);
+    }
+
+private:
+    void updateXY(double total, Angle a) {
+        setMetersX(computeHorizontalComponent(a.getRadians(), total));
+        setMetersY(computeVerticalComponent(a.getRadians(), total));
+    }
 };

@@ -18,13 +18,19 @@ public:
 	}
 
 private:
+	// Things to test (specific methods)
+	// - constructor : values are set correctly
+	// - normalization : values are reduced correctly
+	// - get Radians from Degrees : value is translated correctly
+	// - get Degrees from Radians : value ist
+
 	void degress0()
 	{}
 
 	void degrees180()
 	{}
 
-	void degressNegative()
+	void degreesNegative()
 	{}
 
 	void degreesOver360()
@@ -33,6 +39,12 @@ private:
 	void radians0()
 	{}
 
-	void radiansNegative()
+	void radiansPI()
+	{}
 
+	void radiansNegative()
+	{}
+
+	void radiansOver2PI()
+	{}
 };
