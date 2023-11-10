@@ -35,9 +35,9 @@ public:
 
 private:
 	// Setup method (see setupGround in cpp)
-	Ground setupGround() {
-		return Ground();
-	}
+	/*Ground setupGround() {
+		//return Ground();
+	}*/
 	
 	void testShootAngle0() {
 		// Setup

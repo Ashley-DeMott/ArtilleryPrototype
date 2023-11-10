@@ -18,7 +18,12 @@
  ****************************************************************/
 void testRunner()
 {
-   TestPosition().run();
-   TestGround().run();
-   TestProjectile().run();
+	cout << "Running Position tests..." << endl;
+	TestPosition().run();
+   
+	cout << "Running Ground tests..." << endl;
+	TestGround().run();
+
+	cout << "Running Projectile tests..." << endl;
+	TestProjectile().run();
 }
