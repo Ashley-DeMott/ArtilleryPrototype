@@ -1,13 +1,13 @@
 /***********************************************************************
  * Header File:
- *    Projectile : Represents the projectile in the artillery simulation
+ *    Projectile : Represents the Projectile in the artillery simulation
  * Author:
  *    Ashley DeMott, Jason Geppelt
  * Summary:
- *    Everything about the projectile
+ *    Everything about the Projectile
  ************************************************************************/
 #pragma once
-//#include "position.h"
+//#include "positionOld.h"
 #include "angle.h"
 #include "position.h"
 
