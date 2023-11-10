@@ -11,6 +11,7 @@
 #include "testPosition.h"
 #include "testGround.h"
 #include "testProjectile.h"
+#include "testSimulator.h"
 
 /*****************************************************************
  * TEST RUNNER
@@ -24,6 +25,9 @@ void testRunner()
 	cout << "Running Ground tests..." << endl;
 	TestGround().run();
 
-	//cout << "Running Projectile tests..." << endl;
-	//TestProjectile().run();
+	cout << "Running Projectile tests..." << endl;
+	TestProjectile().run();
+
+	cout << "Running Simulator tests..." << endl;
+	TestSimulator().run();
 }

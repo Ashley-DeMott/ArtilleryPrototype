@@ -22,15 +22,10 @@ public:
 	void run()
 	{
 		// Setup - Assume ground is flat, start and end at 0.0
-		testShootAngle0();
-		testShootAngle15();
-		testShootAngle30();
-		testShootAngle45();
-		testShootAngle85();
-		testShootAngleNeg15();
-		testShootAngleNeg30();
-		testShootAngleNeg45();
-		testShootAngleNeg85();
+		testAngleZero();
+		testAngleValid();
+		testAngleNegative();
+		testAngleOverLimit();
 	}
 
 private:
@@ -38,58 +33,19 @@ private:
 	/*Ground setupGround() {
 		//return Ground();
 	}*/
-	
-	void testShootAngle0() {
+
+	void testAngleZero() {
 		// Setup
-		
+		Projectile proj;
+
 		// Exercise
 		
 		// Verify
-		
-		// Teardown
-	}
-
-	void testShootAngleNeg15() {
-		// Setup
-
-		// Exercise
-
-		// Verify
 
 		// Teardown
 	}
 
-	void testShootAngle15() {
-		// Setup
-
-		// Exercise
-
-		// Verify
-
-		// Teardown	
-	}
-
-	void testShootAngleNeg30() {
-		// Setup
-
-		// Exercise
-
-		// Verify
-
-		// Teardown	
-	}
-
-	void testShootAngle30() {
-		// Setup
-
-		// Exercise
-
-		// Verify
-
-		// Teardown	
-	}
-
-	void testShootAngleNeg45() {
+	void testAngleValid() {
 		// Setup
 
 		// Exercise
@@ -99,7 +55,7 @@ private:
 		// Teardown
 	}
 
-	void testShootAngle45() {
+	void testAngleNegative() {
 		// Setup
 
 		// Exercise
@@ -109,17 +65,7 @@ private:
 		// Teardown	
 	}
 
-	void testShootAngleNeg85() {
-		// Setup
-
-		// Exercise
-
-		// Verify
-
-		// Teardown
-	}
-
-	void testShootAngle85() {
+	void testAngleOverLimit() {
 		// Setup
 
 		// Exercise
