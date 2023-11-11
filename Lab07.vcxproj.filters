@@ -107,6 +107,9 @@
     <ClInclude Include="testTwoDValue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="acceleration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -9,6 +9,8 @@
 #pragma once
 #include "position.h"
 
+class TestHowitzer;
+
 class Howitzer {
 public:
 	friend TestHowitzer;
