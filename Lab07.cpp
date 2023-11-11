@@ -8,7 +8,7 @@
  * 4. What was the hardest part? Be as specific as possible.
  *      ??
  * 5. How long did it take for you to complete the assignment?
- *      ??
+ *      6 hours
  *****************************************************************/
 
 #include <cassert>      // for ASSERT
@@ -16,7 +16,7 @@
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "ground.h"     // for GROUND
 #include "position.h"   // for POSITION
-#include "test.h"
+#include "testRunner.h"
 using namespace std;
 
 /*************************************************************************
@@ -130,7 +130,7 @@ void callBack(const Interface* pUI, void* p)
         << pDemo->time << "s\n";
 }
 
-double Position::metersFromPixels = 40.0;
+double TwoDValue::metersFromPixels = 40.0;
 
 /*********************************
  * Initialize the simulation and set it in motion
@@ -147,8 +147,8 @@ int main(int argc, char** argv)
 #endif // !_WIN32
 {
     // Run the tests
-    //testRunner();
-    //cout << "Tests complete!" << endl;
+    testRunner();
+    cout << "Tests complete!" << endl;
 
    // Initialize OpenGL
    Position ptUpperRight;

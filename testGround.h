@@ -7,10 +7,9 @@
  *    All the unit tests for the Ground class
  ************************************************************************/
 #pragma once
-
-#include "ground.h"
-#include <cassert>
+#include "test.h"
 #include <vector>
+#include "ground.h"
 
 using namespace std;
 
@@ -18,7 +17,7 @@ using namespace std;
  * TEST GROUND
  * A friend class for Ground which contains the Ground unit tests
  ********************************/
-class TestGround
+class TestGround : Test
 {
 public:
    void run()
@@ -123,7 +122,6 @@ private:
          assert(g.ground[9] >= 0.0 && g.ground[9] < 10.0);
       }
    }  // teardown
-
 
    // The shell is 2 pixels above the ground
    void getTarget_two()
@@ -245,11 +243,9 @@ private:
       verifyStandardFixture(g);
    }  // teardown
 
-
    //
    // STANDARD FIXTURE
    //
-
 
    // standard fixture: 10 x 10 with howitzer at 5 and target at 7
    void setupStandardFixture(Ground& g)

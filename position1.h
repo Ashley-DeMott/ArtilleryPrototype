@@ -8,28 +8,26 @@
  *    or the location on the field.
  ************************************************************************/
 #pragma once
-
 #include <iostream> 
 #include <cmath>
 
 class TestPosition;
-class Acceleration;
-class Velocity;
 
 /*********************************************
  * Position
  * A single position on the field in Meters  
  *********************************************/
-class Position
+/*
+class Position1
 {
 public:
    friend TestPosition;
    
    // constructors
-   Position()            : x(0.0), y(0.0)  {}
-   Position(double x, double y);
-   Position(const Position & pt) : x(pt.x), y(pt.y) {}
-   Position& operator = (const Position& pt);
+   Position1()            : x(0.0), y(0.0)  {}
+   Position1(double x, double y);
+   Position1(const Position1 & pt) : x(pt.x), y(pt.y) {}
+   Position1& operator = (const Position1& pt);
 
    // getters
    double getMetersX()       const { return x;                    }
@@ -59,31 +57,32 @@ private:
    double x;                 // horizontal position
    double y;                 // vertical position
    static double metersFromPixels;
-};
-
+   
+};  */
 /*********************************************
  * COMPUTE DISTANCE
  * Find the distance between two positions
  *********************************************/
-inline double computeDistance(const Position& pos1, const Position& pos2)
+   /*
+inline double computeDistance(const Position1& pos1, const Position1& pos2)
 {
    return sqrt((pos1.getMetersX() - pos2.getMetersX()) * (pos1.getMetersX() - pos2.getMetersX()) +
                (pos1.getMetersY() - pos2.getMetersY()) * (pos1.getMetersY() - pos2.getMetersY()));
 }
 
 // stream I/O useful for debugging
-std::ostream & operator << (std::ostream & out, const Position& pt);
-std::istream & operator >> (std::istream & in,        Position& pt);
+std::ostream & operator << (std::ostream & out, const Position1& pt);
+std::istream & operator >> (std::istream & in,        Position1& pt);
 
 
 /*********************************************
  * PT
  * Trivial point
  *********************************************/
+/* Moved to TwoDValue
 struct PT
 {
-   double x;
-   double y;
+    double x;
+    double y;
 };
-
-
+*/

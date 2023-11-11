@@ -7,8 +7,8 @@
  *    All the unit tests for the Projectile class
  ************************************************************************/
 #pragma once
+#include "test.h"
 #include "projectile.h"
-#include <cassert>
 
 using namespace std;
 
@@ -16,7 +16,7 @@ using namespace std;
  * TEST PROJECTILE
  * A friend class for Projectile which contains the Projectile unit tests
  ********************************/
-class TestProjectile
+class TestProjectile : Test
 {
 public:
 	void run()
@@ -30,26 +30,28 @@ public:
 	}
 
 private:
-	// Setup method (see setupGround in cpp)
-	/*Ground setupGround() {
-		//return Ground();
-	}*/
-
 	void testProjConstructor() {
 		// Setup
 		Position pos = Position(5.0, 10.0);
 		Angle a = Angle(45.0);
-		Velocity v = Velocity(827.0, a);
+		Velocity v = Velocity(600.0, a);
 
 		// Exercise
 		Projectile defaultProj;
 		Projectile nonDefaultProj = Projectile(pos, a, v);
 
 		// Verify
-		assert(defaultProj.currentPos.getMetersX() == 0.0);
-		assert(defaultProj.currentPos.getMetersY() == 0.0);
-		assert(defaultProj.velocity.getMetersX() == 584.8);
-		assert(defaultProj.velocity.getMetersY() == 584.8);
+		assert(closeEnough(defaultProj.currentPos.getMetersX(), 0.0));
+		assert(closeEnough(defaultProj.currentPos.getMetersY(), 0.0));
+		assert(closeEnough(defaultProj.currentAngle.getDegrees(), 0.0));
+		assert(closeEnough(defaultProj.velocity.getMetersX(), 0.0));
+		assert(closeEnough(defaultProj.velocity.getMetersY(), 0.0));
+
+        assert(closeEnough(nonDefaultProj.currentPos.getMetersX(), 5.0));
+        assert(closeEnough(nonDefaultProj.currentPos.getMetersY(), 10.0));
+        assert(closeEnough(nonDefaultProj.currentAngle.getDegrees(), 45.0));
+        assert(closeEnough(nonDefaultProj.velocity.getMetersX(), 424.3));
+        assert(closeEnough(nonDefaultProj.velocity.getMetersY(), 424.3));
 
 		// Teardown not needed
 	}
@@ -63,28 +65,31 @@ private:
 		testProj.update(0.0);
 
 		// Verify
-		assert(initialProj.currentPos.getMetersX() == testProj.currentPos.getMetersX());
-		assert(initialProj.currentPos.getMetersY() == testProj.currentPos.getMetersY());
-		assert(initialProj.velocity.getMetersX() == testProj.velocity.getMetersX());
-		assert(initialProj.velocity.getMetersY() == testProj.velocity.getMetersY());
-		assert(initialProj.hangTime == testProj.hangTime);
+		assert(closeEnough(initialProj.currentPos.getMetersX(), testProj.currentPos.getMetersX()));
+		assert(closeEnough(initialProj.currentPos.getMetersY(), testProj.currentPos.getMetersY()));
+		assert(closeEnough(initialProj.velocity.getMetersX(), testProj.velocity.getMetersX()));
+		assert(closeEnough(initialProj.velocity.getMetersY(), testProj.velocity.getMetersY()));
+		assert(closeEnough(initialProj.hangTime, testProj.hangTime));
 
 		// Teardown not needed
 	}
 
 	void testUpdateOneSec() {
 		// Setup
-		Projectile testProj;
+		Projectile testProj = Projectile(Position(), Angle(0), Velocity(827.0, Angle(0)));
 
 		// Exercise
 		testProj.update(1.0);
 
 		// Verify
-		assert(testProj.currentPos.getMetersX() == 538.2);
-		assert(testProj.currentPos.getMetersY() == 523.5);
-		assert(testProj.velocity.getMetersX() == 553.8);
-		assert(testProj.velocity.getMetersY() == 544.0);
-		assert(testProj.hangTime == 1.0);
+		/*
+		 538.2, 523.5, 553.8, 544.0
+		*/
+		assert(closeEnough(testProj.currentPos.getMetersX(), 0.0));
+		assert(closeEnough(testProj.currentPos.getMetersY(), 746.5));
+		assert(closeEnough(testProj.velocity.getMetersX(), 0.0));
+		assert(closeEnough(testProj.velocity.getMetersY(), 773.3));
+		assert(closeEnough(testProj.hangTime, 1.0));
 
 		// Teardown not needed
 	}
@@ -97,11 +102,11 @@ private:
 		testProj.update(5.0);
 
 		// Verify
-		assert(testProj.currentPos.getMetersX() == 1760.7);
-		assert(testProj.currentPos.getMetersY() == 1392.9);
-		assert(testProj.velocity.getMetersX() == 429.7);
-		assert(testProj.velocity.getMetersY() == 380.6);
-		assert(testProj.hangTime == 5.0);
+		assert(closeEnough(testProj.currentPos.getMetersX(), 1760.7));
+		assert(closeEnough(testProj.currentPos.getMetersY(), 1392.9));
+		assert(closeEnough(testProj.velocity.getMetersX(), 429.7));
+		assert(closeEnough(testProj.velocity.getMetersY(), 380.6));
+		assert(closeEnough(testProj.hangTime, 5.0));
 
 		// Teardown not needed
 	}
@@ -118,7 +123,8 @@ private:
 		Position pos = testProj.getPosition();
 
 		// Verify
-		assert(pos == expectedPos);
+		assert(closeEnough(pos.getMetersX(), expectedPos.getMetersX()));
+		assert(closeEnough(pos.getMetersY(), expectedPos.getMetersY()));
 
 		// Teardown not needed
 	}

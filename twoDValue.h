@@ -11,6 +11,8 @@
 #include <iostream> 
 #include <cmath>
 
+class TestTwoDValue;
+
 /*********************************************
  * 2DValue
  * An (x, y) value represented in meters
@@ -28,6 +30,8 @@ public:
     };
     TwoDValue(const TwoDValue & pt) : x(pt.x), y(pt.y) {}
     TwoDValue & operator = (const TwoDValue& pt);
+
+    friend TestTwoDValue;
 
     // getters
     double getMetersX()       const { return x; }

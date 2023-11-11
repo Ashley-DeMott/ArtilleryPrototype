@@ -8,6 +8,7 @@
  ************************************************************************/
 
 #include "test.h"
+#include "testTwoDValue.h"
 #include "testPosition.h"
 #include "testGround.h"
 #include "testProjectile.h"
@@ -18,10 +19,13 @@
  * Runs all the unit tests
  ****************************************************************/
 void testRunner()
-{
+{	
+	cout << "Running TwoDValue tests..." << endl;
+	TestTwoDValue().run();
+
 	cout << "Running Position tests..." << endl;
 	TestPosition().run();
-   
+	   
 	cout << "Running Ground tests..." << endl;
 	TestGround().run();
 

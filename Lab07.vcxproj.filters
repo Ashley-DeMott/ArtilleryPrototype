@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="positionOld.cpp">
+    <ClCompile Include="position1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="testRunner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="uiDraw.cpp">
@@ -45,18 +45,21 @@
     <ClCompile Include="howitzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="positionOld.h">
+    <ClInclude Include="position1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="testRunner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="testPosition.h">
+    <ClInclude Include="testPosition1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="uiDraw.h">
@@ -90,6 +93,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="howitzer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testHowitzer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testPosition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testTwoDValue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

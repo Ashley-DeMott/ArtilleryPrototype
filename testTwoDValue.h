@@ -1,27 +1,28 @@
+#pragma once
 /***********************************************************************
  * Header File:
- *    Test Position : Test the Position class
+ *    Test TwoDValue : Test the TwoDValue class
  * Author:
  *    Ashley DeMott
  * Summary:
- *    All the unit tests for Position
+ *    All the unit tests for TwoDValue
  ************************************************************************/
 #pragma once
 #include "test.h"
-#include "position.h"
+#include "twoDValue.h"
 
 using namespace std;
 
 /*******************************
- * TEST Position
+ * TEST TwoDValue
  * A friend class for Position which contains the Position unit tests
  ********************************/
-class TestPosition : Test
+class TestTwoDValue : Test
 {
 public:
     void run()
     {
-        Position().setZoom(1000.0); // 1km equals 1 pixel
+        TwoDValue().setZoom(1000.0); // 1km equals 1 pixel
         defaultConstructor();
         nonDefaultConstructor();
         copyConstructor();
@@ -38,7 +39,7 @@ private:
     void defaultConstructor() const
     {  // setup
        // exercise
-        Position pos;
+        TwoDValue pos;
         // verify
         assert(pos.x == 0.0);
         assert(pos.y == 0.0);
@@ -47,7 +48,7 @@ private:
     void nonDefaultConstructor() const
     {  // setup
        // exercise
-        Position pos(3000.0, 9000.0);
+        TwoDValue pos(3000.0, 9000.0);
         // verify
         assert(pos.x == 3000.0);
         assert(pos.y == 9000.0);
@@ -55,11 +56,11 @@ private:
 
     void copyConstructor() const
     {  // setup
-        Position pos1;
+        TwoDValue pos1;
         pos1.x = 4000.0;
         pos1.y = 2000.0;
         // exercise
-        Position pos2(pos1);
+        TwoDValue pos2(pos1);
         // verify
         assert(pos1.x == 4000.0);
         assert(pos1.y == 2000.0);
@@ -69,11 +70,11 @@ private:
 
     void assignment() const
     {  // setup
-        Position pos1;
+        TwoDValue pos1;
         pos1.x = 4000.0;
         pos1.y = 2000.0;
         // exercise
-        Position pos2 = pos1;
+        TwoDValue pos2 = pos1;
         // verify
         assert(pos1.x == 4000.0);
         assert(pos1.y == 2000.0);
@@ -83,7 +84,7 @@ private:
 
     void setMeters() const
     {  // setup
-        Position pos;
+        TwoDValue pos;
         pos.x = 0.0;
         pos.y = 0.0;
         // exercise
@@ -96,7 +97,7 @@ private:
 
     void setPixels() const
     {  // setup
-        Position pos;
+        TwoDValue pos;
         pos.x = 0.0;
         pos.y = 0.0;
         // exercise
@@ -109,7 +110,7 @@ private:
 
     void addMeters() const
     {  // setup
-        Position pos;
+        TwoDValue pos;
         pos.x = 800.0;
         pos.y = 1600.0;
         // exercise
@@ -122,7 +123,7 @@ private:
 
     void addPixels() const
     {  // setup
-        Position pos;
+        TwoDValue pos;
         pos.x = 2000.0;
         pos.y = 4000.0;
         // exercise

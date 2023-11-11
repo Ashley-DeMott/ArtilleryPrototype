@@ -6,44 +6,46 @@
  * Summary:
  *    Everything we need to know about a location on the screen.
  ************************************************************************/
+#include "position1.h"
 
-#include "positionOld.h"
-#include <cassert>
-
-
-Position::Position(double x, double y) : x(0.0), y(0.0)
+/*
+Position1::Position1(double x, double y) : x(0.0), y(0.0)
 {
    setMetersX(x);
    setMetersY(y);
 }
+*/
 
 /******************************************
  * POINT : ASSIGNMENT
  * Assign a point
  *****************************************/
-Position& Position::operator = (const Position& pt)
+/*
+Position1& Position1::operator = (const Position1& pt)
 {
    x = pt.x;
    y = pt.y;
    return *this;
-}
+}*/
 
 
 /******************************************
  * POSITION insertion
  *       Display coordinates on the screen
  *****************************************/
-std::ostream& operator << (std::ostream& out, const Position& pt)
+/*
+std::ostream& operator << (std::ostream& out, const Position1& pt)
 {
    out << "(" << pt.getMetersX() << "m , " << pt.getMetersY() << "m)";
    return out;
-}
+}*/
    
 /*******************************************
 * POSITION extraction
 *       Prompt for coordinates
 ******************************************/
-std::istream& operator >> (std::istream& in, Position& pt)
+/*
+std::istream& operator >> (std::istream& in, Position1& pt)
 {
    double x;
    double y;
@@ -53,4 +55,4 @@ std::istream& operator >> (std::istream& in, Position& pt)
    pt.setMetersY(y);
 
    return in;
-}
+}*/

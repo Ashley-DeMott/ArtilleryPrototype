@@ -9,18 +9,20 @@
 #pragma once
 #include "position.h"
 
-class Howizter {
+class Howitzer {
 public:
-	Howizter(Position p = Position(), Angle a = Angle()) : pt(p), angle(a) {};
+	friend TestHowitzer;
 
-	// Rotate the gun (with radians)
+	Howitzer(Position p = Position(), Angle a = Angle()) : pos(p), angle(a) {};
+
+	// Rotate the gun (using radians)
 	void rotate(double r) {}
 
 	// Getters
-	Position getPosition() { return pt; }
+	Position getPosition() { return pos; }
 	Angle getAngle() { return angle; }
 
 private:
-	Position pt;	// The current Position of the Howitzer
+	Position pos;	// The current Position of the Howitzer
 	Angle angle;	// The current Angle of the Howitzer
 };

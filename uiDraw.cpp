@@ -45,7 +45,6 @@ using namespace std;
 
 Position rotatePosition(const Position& origin, double x, double y, double rotation);
 
-
 /*************************************************************************
  * QUAD
  * Four points and a color
