@@ -82,9 +82,6 @@ private:
 		testProj.update(1.0);
 
 		// Verify
-		/*
-		 538.2, 523.5, 553.8, 544.0
-		*/
 		assert(closeEnough(testProj.currentPos.getMetersX(), 0.0));
 		assert(closeEnough(testProj.currentPos.getMetersY(), 746.5));
 		assert(closeEnough(testProj.velocity.getMetersX(), 0.0));

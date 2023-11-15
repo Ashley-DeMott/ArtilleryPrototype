@@ -133,25 +133,29 @@ double interpolation(const double(&a)[T][2], const double goal) {
 }
 
 void Projectile::update(double time) {
-	double totalV = velocity.getTotalComponent();
-	currentAngle = velocity.getAngle(); // Update the current angle
+    // Reused local variables
+    double altitude = currentPos.getMetersY();
+    double totalV = velocity.getTotalComponent();
 
-	double altitude = currentPos.getMetersY();
-	double p = interpolation(AIR_DENSITY, altitude);
-	double m = interpolation(SPEED_OF_SOUND, altitude);
-	double c = interpolation(DRAG_COEFFICIENT, (totalV / m));
-
-	double dragAcceleration = (0.5 * c * p * totalV * totalV * surfaceArea);
-    dragAcceleration = dragAcceleration / weight;
-    Angle dragAngle = Angle(currentAngle.getDegrees() + 180);
+    currentAngle = velocity.getAngle(); // Update the current angle
 
     // Update acceleration
-    Acceleration currentAcceleration = Acceleration(dragAcceleration, dragAngle);
+    // Calculate Acceleration due to drag
+    double p = interpolation(AIR_DENSITY, altitude);            // The density of air at the current altitude
+    double m = interpolation(SPEED_OF_SOUND, altitude);         // The speed of sound (value of mach) at the current altitude
+    double c = interpolation(DRAG_COEFFICIENT, (totalV / m));   // The drag coefficient
+	double dragAcceleration = ((0.5 * c * p * totalV * totalV * surfaceArea) / weight);
+    
+    // Add the angle to the drag's Acceleration
+    Acceleration currentAcceleration = Acceleration(dragAcceleration, Angle(currentAngle.getDegrees() + 180));
+    
+    // Add acceleration due to gravity
     currentAcceleration.addMetersY(-interpolation(GRAVITY, altitude)); // Add gravity, pulling down
 
 	// Update Velocity
 	velocity.update(currentAcceleration, time);
 
 	// Update Position
+    // TODO: Add last position to collection of previous Positions
 	currentPos.update(velocity, currentAcceleration, time);
 }
