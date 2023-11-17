@@ -23,10 +23,10 @@ public:
 	{
 		// Setup - When not specified, initial position = 0.0 and angle = 45.0
 		testProjConstructor();
+		testGetPosition();
 		testUpdateZeroSec();
 		testUpdateOneSec();
 		testUpdateFiveSec();
-		testGetPosition();
 	}
 
 private:

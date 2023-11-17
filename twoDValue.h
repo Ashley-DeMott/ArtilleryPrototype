@@ -12,6 +12,9 @@
 #include "angle.h"
 
 class TestTwoDValue;
+class TestPosition;
+class TestVelocity;
+class TestAcceleration;
 
 /*********************************************
  * 2D Value
@@ -33,6 +36,9 @@ public:
 
     // For unit testing
     friend TestTwoDValue;
+    friend TestPosition;
+    friend TestVelocity;
+    friend TestAcceleration;
 
     // Getters
     double getMeters()        const { return computeTotalComponent(x, y); }

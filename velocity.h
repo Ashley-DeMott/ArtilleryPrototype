@@ -1,6 +1,8 @@
 #pragma once
 #include "acceleration.h"
 
+class TestVelocity;
+
 // Stores horizontal and vertical velocity
 class Velocity : public TwoDValue
 {
@@ -19,6 +21,8 @@ public:
         setMetersX(computeVelocity(x, a.getMetersX(), t));
         setMetersY(computeVelocity(y, a.getMetersY(), t));
     }
+
+    friend TestVelocity;
 
 protected:
     // Calculate the new velocity using the equation v = v + a t

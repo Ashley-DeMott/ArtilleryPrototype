@@ -11,7 +11,7 @@
 #include <iostream> 
 #include <cmath>
 
-class TestPosition;
+//class TestPosition;
 
 /*********************************************
  * Position

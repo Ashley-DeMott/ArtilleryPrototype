@@ -8,8 +8,14 @@
  ************************************************************************/
 
 #include "test.h"
+
+// Position, Velocity, Acceleration
 #include "testTwoDValue.h"
 #include "testPosition.h"
+#include "testVelocity.h"
+#include "testAcceleration.h"
+
+// Objects
 #include "testGround.h"
 #include "testProjectile.h"
 #include "testAngle.h"
@@ -25,6 +31,12 @@ void testRunner()
 
 	cout << "Running Position tests..." << endl;
 	TestPosition().run();
+
+	cout << "Running Velocity tests..." << endl;
+	TestVelocity().run();
+
+	cout << "Running Acceleration tests..." << endl;
+	TestAcceleration().run();
 	   
 	cout << "Running Ground tests..." << endl;
 	TestGround().run();

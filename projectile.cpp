@@ -81,17 +81,16 @@ const double GRAVITY[14][2] = {
 {25000.0,	-9.730 }
 };
 
-
 // Given a 2D array (or table) of the known values and a goal, calculates the goal's value using interpolation
 template <size_t T>
 double interpolation(const double(&a)[T][2], const double goal) {
     //assert(goal >= a[0][0] && goal < a[T - 1][0]); // Assert not outside the bounds of the array
-    // If outside the bounds of the table,
     
+    // If outside the bounds of the table,   
     if (goal < a[0][0])
-        return a[0][1];
+        return a[0][1]; // Return lower bound
     else if (goal > a[T - 1][0])
-        return a[T - 1][1];
+        return a[T - 1][1]; // Return upper bound
 
     double key = goal;
 

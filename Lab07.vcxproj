@@ -156,9 +156,11 @@
     <ClInclude Include="angle.h" />
     <ClInclude Include="howitzer.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="TestAcceleration.h" />
     <ClInclude Include="testHowitzer.h" />
     <ClInclude Include="testPosition.h" />
     <ClInclude Include="testTwoDValue.h" />
+    <ClInclude Include="testVelocity.h" />
     <ClInclude Include="twoDValue.h" />
     <ClInclude Include="ground.h" />
     <ClInclude Include="position1.h" />
