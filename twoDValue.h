@@ -68,8 +68,7 @@ public:
     double getTotalComponent() { return computeTotalComponent(x, y); }
 
     // Get the Angle between the x and y (Angle of direction for velocity/acceleration)
-    Angle getAngle() { return radiansFromXY(x, y); }
-
+    Angle getAngle() { return angleFromXY(x, y); }
 
     // Overide the comparison operator
     friend bool operator== (const TwoDValue& v1, const TwoDValue& v2);
@@ -79,6 +78,7 @@ protected:
     double y;                 // vertical value
     static double metersFromPixels;
 
+    // Given a total and angle (only for Velocity and Acceleration), set the x and y components
     void updateXY(double total, Angle a) {
         setMetersX(computeHorizontalComponent(a.getRadians(), total));
         setMetersY(computeVerticalComponent(a.getRadians(), total));
@@ -100,8 +100,10 @@ protected:
     }
 
     // Get the Angle of direction (in radians) for the total given the x and y values
-    static Angle radiansFromXY(double x, double y) {
-        return atan2(x, y);
+    static Angle angleFromXY(double x, double y) {
+        Angle a;
+        a.setRadians(atan2(x, y));
+        return a;
     }
 };
 

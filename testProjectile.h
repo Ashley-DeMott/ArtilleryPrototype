@@ -27,18 +27,19 @@ public:
 		testUpdateZeroSec();
 		testUpdateOneSec();
 		testUpdateFiveSec();
+
+		testUpdateIncrementalFiveSec();
 	}
 
 private:
 	void testProjConstructor() {
 		// Setup
 		Position pos = Position(5.0, 10.0);
-		Angle a = Angle(45.0);
-		Velocity v = Velocity(600.0, a);
+		Velocity v = Velocity(600.0, Angle(45.0));
 
 		// Exercise
 		Projectile defaultProj;
-		Projectile nonDefaultProj = Projectile(pos, a, v);
+		Projectile nonDefaultProj = Projectile(pos, v);
 
 		// Verify
 		assert(closeEnough(defaultProj.currentPos.getMetersX(), 0.0));
@@ -76,7 +77,7 @@ private:
 
 	void testUpdateOneSec() {
 		// Setup
-		Projectile testProj = Projectile(Position(), Angle(0), Velocity(827.0, Angle(0)));
+		Projectile testProj = Projectile(Position(), Velocity(827.0, Angle(0)));
 
 		// Exercise
 		testProj.update(1.0);
@@ -93,7 +94,7 @@ private:
 
 	void testUpdateFiveSec() {
 		// Setup
-		Projectile testProj;
+		Projectile testProj = Projectile(Position(), Velocity(827.0, Angle(45)));
 
 		// Exercise
 		testProj.update(5.0);
@@ -104,6 +105,49 @@ private:
 		assert(closeEnough(testProj.velocity.getMetersX(), 429.7));
 		assert(closeEnough(testProj.velocity.getMetersY(), 380.6));
 		assert(closeEnough(testProj.hangTime, 5.0));
+
+		// Teardown not needed
+	}
+
+	void testUpdateIncrementalFiveSec() {
+		// Setup
+		Projectile testProj = Projectile(Position(), Velocity(827.0, Angle(45)));
+
+		// Exercise
+		// Move the projectile 5 times, 1 second each
+		for (int i = 0; i < 5; i++)
+		{
+			testProj.update(1.0);
+			//cout << "X: " << testProj.currentPos.getMetersX() << "\t";
+			//cout << "Y: " << testProj.currentPos.getMetersY() << endl;
+		}
+
+		// Verify - final position is the same
+		assert(closeEnough(testProj.currentPos.getMetersX(), 2465.98));
+		assert(closeEnough(testProj.currentPos.getMetersY(), 2304.72));
+		assert(closeEnough(testProj.hangTime, 5.0));
+
+		// Check that path positions are the same
+		// First Position in the list
+		auto iPath = testProj.path.begin();
+		assert(closeEnough((*iPath).getMetersX(), 0.0));
+		assert(closeEnough((*iPath).getMetersY(), 0.0));
+
+		advance(iPath, 1);
+		assert(closeEnough((*iPath).getMetersX(), 538.249));
+		assert(closeEnough((*iPath).getMetersY(), 523.539));
+
+		advance(iPath, 1);
+		assert(closeEnough((*iPath).getMetersX(), 1051.25));
+		assert(closeEnough((*iPath).getMetersY(), 1012.73));
+
+		advance(iPath, 1);
+		assert(closeEnough((*iPath).getMetersX(), 1541.99));
+		assert(closeEnough((*iPath).getMetersY(), 1470.95));
+
+		advance(iPath, 1);
+		assert(closeEnough((*iPath).getMetersX(), 2012.91));
+		assert(closeEnough((*iPath).getMetersY(), 1900.88));
 
 		// Teardown not needed
 	}

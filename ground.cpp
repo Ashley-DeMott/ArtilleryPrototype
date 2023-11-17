@@ -64,7 +64,6 @@ Position Ground::getTarget() const
    return posTarget;
 }
 
-
 /************************************************************************
  * GROUND :: RESET
  * Note that the howitzer's Y position will be updated when the ground is 
@@ -117,7 +116,9 @@ Position Ground::getTarget() const
 
          // determine the elevation according to the slope
          ground[i] = ground[i - 1] + dy + random(-TEXTURE, TEXTURE);
+         //cout << "ground " << i << ": " << ground[i] << endl;
          assert(ground[i] >= 0.0 && ground[i] <= posUpperRight.getPixelsY());
+
       }
    }
 

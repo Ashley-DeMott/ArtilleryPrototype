@@ -11,5 +11,4 @@ public:
     Acceleration(double x, double y) : TwoDValue(x, y) {}
     Acceleration(const Acceleration& pt) : TwoDValue(pt) {}
     Acceleration& operator = (const Acceleration& pt);
-
 };

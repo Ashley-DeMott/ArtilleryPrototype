@@ -15,9 +15,6 @@ public:
     Velocity& operator = (const Velocity& pt);
 
     void update(Acceleration a, double t) {
-        Angle angle = Angle();
-        angle = radiansFromXY(x, y);
-
         setMetersX(computeVelocity(x, a.getMetersX(), t));
         setMetersY(computeVelocity(y, a.getMetersY(), t));
     }

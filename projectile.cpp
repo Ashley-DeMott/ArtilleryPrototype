@@ -137,24 +137,30 @@ void Projectile::update(double time) {
     double totalV = velocity.getTotalComponent();
 
     currentAngle = velocity.getAngle(); // Update the current angle
+    hangTime += time; // Update the current time in the air
 
     // Update acceleration
     // Calculate Acceleration due to drag
     double p = interpolation(AIR_DENSITY, altitude);            // The density of air at the current altitude
     double m = interpolation(SPEED_OF_SOUND, altitude);         // The speed of sound (value of mach) at the current altitude
     double c = interpolation(DRAG_COEFFICIENT, (totalV / m));   // The drag coefficient
-	double dragAcceleration = ((0.5 * c * p * totalV * totalV * surfaceArea) / weight);
-    
+    double dragAcceleration = (0.5 * c * p * totalV * totalV * surfaceArea) / weight;
+
     // Add the angle to the drag's Acceleration
     Acceleration currentAcceleration = Acceleration(dragAcceleration, Angle(currentAngle.getDegrees() + 180));
-    
+
     // Add acceleration due to gravity
-    currentAcceleration.addMetersY(-interpolation(GRAVITY, altitude)); // Add gravity, pulling down
+    currentAcceleration.addMetersY(interpolation(GRAVITY, altitude)); // Add gravity, pulling down
 
-	// Update Velocity
-	velocity.update(currentAcceleration, time);
-
-	// Update Position
-    // TODO: Add last position to collection of previous Positions
-	currentPos.update(velocity, currentAcceleration, time);
+    // Update Velocity
+    velocity.update(currentAcceleration, time);
+    
+    // Save the previous position in a list
+    path.push_back(currentPos);
+    if (path.size() > PATH_SIZE)
+    {
+        path.pop_front();
+    }
+    // Update Position
+    currentPos.update(velocity, currentAcceleration, time);
 }

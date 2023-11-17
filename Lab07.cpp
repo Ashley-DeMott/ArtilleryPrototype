@@ -33,7 +33,7 @@ public:
       angle(0.0)
    {
       // Set the horizontal position of the howitzer. This should be random.
-      ptHowitzer.setPixelsX(Position(ptUpperRight).getPixelsX() / 2.0);
+      ptHowitzer.setPixelsX(ptUpperRight.getPixelsX() / 2.0);
 
       // Generate the ground and set the vertical position of the howitzer.
       ground.reset(ptHowitzer);
@@ -72,6 +72,8 @@ void callBack(const Interface* pUI, void* p)
    //
    // accept input
    //
+
+   cout << "callback!" << endl; // Its hanging for about 20 seconds.. callback should run about 30 times per second
 
    // move a large amount
    if (pUI->isRight())
@@ -146,24 +148,25 @@ int WINAPI wWinMain(
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
-    // Run the tests
+    // Run the tests    
     testRunner();
     cout << "Tests complete!" << endl;
-
+    
+    /*
    // Initialize OpenGL
    Position ptUpperRight;
    ptUpperRight.setPixelsX(700.0);
    ptUpperRight.setPixelsY(500.0);
-   Position().setZoom(40.0 /* 42 meters equals 1 pixel */);
+   Position().setZoom(40.0); // 42 meters equals 1 pixel
    Interface ui(0, NULL,
-      "Demo",   /* name on the window */
+      "Team 2 - Artillery Prototype",   
       ptUpperRight);
-
+      
    // Initialize the demo
    Demo demo(ptUpperRight);
 
    // set everything into action
-   ui.run(callBack, &demo);
+   ui.run(callBack, &demo);*/
 
    return 0;
 }
