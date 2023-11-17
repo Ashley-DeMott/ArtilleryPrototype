@@ -32,9 +32,168 @@ public:
 
         addPixels();
         addMeters();
+
+        // Update
+        // Only Velocity given
+        testUpdateHoriztonalOneVel();
+        testUpdateVerticalOneVel();
+        testUpdateDiagonalOneVel();
+
+        // Only Acceleration given
+        testUpdateHoriztonalOneAcc();
+        testUpdateVerticalOneAcc();
+        testUpdateDiagonalOneAcc();
+
+        // Both
+        testUpdateHoriztonalOne();
+        testUpdateVerticalOne();
+        testUpdateDiagonalOne();
     }
 
 private:
+
+    void testUpdateHoriztonalOne() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(10.0, 0.0), Acceleration(10.0, 0.0), 1.0);
+
+        // Verify
+        assert(pos.x == 15.0);
+        assert(pos.y == 0.0);
+
+        // Teardown
+    }
+
+    void testUpdateHoriztonalOneVel() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(10.0, 0.0), Acceleration(0.0, 0.0), 1.0);
+
+        // Verify
+        assert(pos.x == 10.0);
+        assert(pos.y == 0.0);
+
+        // Teardown
+    }
+
+    void testUpdateHoriztonalOneAcc() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(0.0, 0.0), Acceleration(10.0, 10.0), 1.0);
+
+        // Verify
+        assert(pos.x == 5.0);
+        assert(pos.y == 5.0);
+
+        // Teardown
+    }
+
+    void testUpdateVerticalOne() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(0.0, 10.0), Acceleration(0.0, 10.0), 1.0);
+
+        // Verify
+        assert(pos.x == 0.0);
+        assert(pos.y == 15.0);
+
+        // Teardown
+    }
+
+    void testUpdateVerticalOneVel() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(0.0, 10.0), Acceleration(0.0, 0.0), 1.0);
+
+        // Verify
+        assert(pos.x == 0.0);
+        assert(pos.y == 10.0);
+
+        // Teardown
+    }
+
+    void testUpdateVerticalOneAcc() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(0.0, 0.0), Acceleration(0.0, 10.0), 1.0);
+
+        // Verify
+        assert(pos.x == 0.0);
+        assert(pos.y == 5.0);
+
+        // Teardown
+    }
+
+    void testUpdateDiagonalOne() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(10.0, 10.0), Acceleration(10.0, 10.0), 1.0);
+
+        // Verify
+        assert(pos.x == 15.0);
+        assert(pos.y == 15.0);
+
+        // Teardown
+    }
+
+    void testUpdateDiagonalOneVel() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(10.0, 10.0), Acceleration(0.0, 0.0), 1.0);
+
+        // Verify
+        assert(pos.x == 10.0);
+        assert(pos.y == 10.0);
+
+        // Teardown
+    }
+
+    void testUpdateDiagonalOneAcc() const
+    {
+        // Setup
+        Position pos;
+
+        // Exercise
+        pos.update(Velocity(0.0, 0.0), Acceleration(10.0, 10.0), 1.0);
+
+        // Verify
+        assert(pos.x == 5.0);
+        assert(pos.y == 5.0);
+
+        // Teardown
+    }
+
+
+
+
+
+
+
+    // Constructors, etc
     void defaultConstructor() const
     {  // setup
        // exercise

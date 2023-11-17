@@ -9,7 +9,6 @@
 #pragma once
 #include "test.h"
 #include "velocity.h"
-#include "acceleration.h" // Should a dummy/fake be used?
 
 using namespace std;
 
