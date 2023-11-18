@@ -78,7 +78,7 @@ protected:
     double y;                 // vertical value
     static double metersFromPixels;
 
-    // Given a total and angle (only for Velocity and Acceleration), set the x and y components
+    // Given a total and angle (only for Velocity and Acceleration, vectors), set the x and y components
     void updateXY(double total, Angle a) {
         setMetersX(computeHorizontalComponent(a.getRadians(), total));
         setMetersY(computeVerticalComponent(a.getRadians(), total));

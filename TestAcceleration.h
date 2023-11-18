@@ -4,7 +4,7 @@
  * Author:
  *    Ashley DeMott
  * Summary:
- *    All the unit tests for Velocity
+ *    All the unit tests for Acceleration
  ************************************************************************/
 #pragma once
 #include "test.h"
@@ -13,8 +13,8 @@
 using namespace std;
 
 /*******************************
- * TEST Position
- * A friend class for Position which contains the Position unit tests
+ * TEST Acceleration
+ * A friend class for Acceleration which contains the Acceleration unit tests
  ********************************/
 class TestAcceleration : Test
 {

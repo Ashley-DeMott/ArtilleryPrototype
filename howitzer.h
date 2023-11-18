@@ -18,7 +18,7 @@ public:
 	Howitzer(Position p = Position(), Angle a = Angle()) : pos(p), angle(a) {};
 
 	// Rotate the gun (using radians)
-	void rotate(double r) {}
+	void rotate(double r) { angle.setRadians(angle.getRadians() + r); }
 
 	// Getters
 	Position getPosition() { return pos; }

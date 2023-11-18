@@ -2,11 +2,10 @@
  * Source File:
  *    Test : Test runner
  * Author:
- *    Br. Helfrich
+ *    Ashley DeMott, Jason Geppelt
  * Summary:
  *    The test runner for all the unit tests
  ************************************************************************/
-
 #include "test.h"
 
 // Position, Velocity, Acceleration
@@ -14,11 +13,12 @@
 #include "testPosition.h"
 #include "testVelocity.h"
 #include "testAcceleration.h"
+#include "testAngle.h"
 
 // Objects
 #include "testGround.h"
 #include "testProjectile.h"
-#include "testAngle.h"
+#include "testHowitzer.h"
 
 /*****************************************************************
  * TEST RUNNER
@@ -26,6 +26,7 @@
  ****************************************************************/
 void testRunner()
 {	
+	/* Position/measurement classes */
 	cout << "Running TwoDValue tests..." << endl;
 	TestTwoDValue().run();
 
@@ -37,13 +38,17 @@ void testRunner()
 
 	cout << "Running Acceleration tests..." << endl;
 	TestAcceleration().run();
+
+	cout << "Running Angle tests..." << endl;
+	TestAngle().run();
 	   
-	cout << "Running Ground tests..." << endl;
+	/* Objects */
+	cout << "\nRunning Ground tests..." << endl;
 	TestGround().run();
 
 	cout << "Running Projectile tests..." << endl;
 	TestProjectile().run();
 
-	cout << "Running Angle tests..." << endl;
-	TestAngle().run();
+	cout << "Running Howitzer tests..." << endl;
+	TestHowitzer().run();
 }

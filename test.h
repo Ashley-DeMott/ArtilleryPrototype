@@ -4,7 +4,7 @@
  * Author:
  *    Ashley DeMott
  * Summary:
- *    Is the interface for all types of Test
+ *    The interface for all types of Test
  ************************************************************************/
 #pragma once
 #include <iostream>
@@ -12,7 +12,7 @@
 
 class Test {
 public:
-    virtual void run() = 0; // Pure virtual run funciton, all must implement their own
+    virtual void run() = 0; // Pure virtual run funciton, all children must implement their own
 
 protected:
     // utility funciton because floating point numbers are approximations

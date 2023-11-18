@@ -1,3 +1,11 @@
+/***********************************************************************
+ * Header File:
+ *    Velocity : The representation of a speed in m/s
+ * Author:
+ *    Ashley DeMott
+ * Summary:
+ *    Stores an Velocity with x and y values, can be converted between meters and pixels
+ ************************************************************************/
 #pragma once
 #include "acceleration.h"
 
@@ -12,7 +20,12 @@ public:
     Velocity(double total, Angle a) { updateXY(total, a); }
     Velocity(double x, double y) : TwoDValue(x, y) {}
     Velocity(const Velocity& pt) : TwoDValue(pt) {}
-    Velocity& operator = (const Velocity& pt);
+    Velocity& operator = (const Velocity& pt)
+    {
+        x = pt.x;
+        y = pt.y;
+        return *this;
+    }
 
     void update(Acceleration a, double t) {
         setMetersX(computeVelocity(x, a.getMetersX(), t));

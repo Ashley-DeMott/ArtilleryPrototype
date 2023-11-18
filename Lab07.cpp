@@ -73,7 +73,8 @@ void callBack(const Interface* pUI, void* p)
    // accept input
    //
 
-   cout << "callback!" << endl; // Its hanging for about 20 seconds.. callback should run about 30 times per second
+   // FIXED - zoom was set to so small it didn't know what to draw
+   //cout << "callback!" << endl; // Its hanging for about 20 seconds.. callback should run about 30 times per second
 
    // move a large amount
    if (pUI->isRight())
