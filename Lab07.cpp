@@ -51,7 +51,7 @@ public:
    Ground ground;                 // the ground
    Position  projectilePath[20];  // path of the projectile
    Position  ptHowitzer;          // location of the howitzer
-   Position  ptUpperRight;        // size of the screen
+   const Position  ptUpperRight;        // size of the screen
    double angle;                  // angle of the howitzer 
    double time;                   // amount of time since the last firing
 };
@@ -152,12 +152,14 @@ int main(int argc, char** argv)
     testRunner();
     cout << "Tests complete!" << endl;
     
-    /*
-   // Initialize OpenGL
+   // The size of the window
+    // FIXED - Zoom needs to be set BEFORE position set in pixels, changed within unit tests
+   Position().setZoom(40.0); // 42 meters equals 1 pixel
    Position ptUpperRight;
    ptUpperRight.setPixelsX(700.0);
    ptUpperRight.setPixelsY(500.0);
-   Position().setZoom(40.0); // 42 meters equals 1 pixel
+   
+   // Initialize OpenGL
    Interface ui(0, NULL,
       "Team 2 - Artillery Prototype",   
       ptUpperRight);
@@ -166,7 +168,7 @@ int main(int argc, char** argv)
    Demo demo(ptUpperRight);
 
    // set everything into action
-   ui.run(callBack, &demo);*/
+   ui.run(callBack, &demo);
 
    return 0;
 }
