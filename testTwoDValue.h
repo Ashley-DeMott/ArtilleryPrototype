@@ -1,4 +1,3 @@
-#pragma once
 /***********************************************************************
  * Header File:
  *    Test TwoDValue : Test the TwoDValue class

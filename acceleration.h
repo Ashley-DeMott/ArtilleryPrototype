@@ -9,11 +9,11 @@
 #pragma once
 #include "twoDValue.h"
 
-// Stores horizontal and vertical velocity
+// A type of TwoDValue that represents acceleration (the change in speed)
 class Acceleration : public TwoDValue
 {
 public:
-    // constructors
+    // Constructors
     Acceleration() : TwoDValue(0.0, 0.0) {}
     Acceleration(double total, Angle a) { updateXY(total, a); }
     Acceleration(double x, double y) : TwoDValue(x, y) {}

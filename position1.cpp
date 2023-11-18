@@ -6,7 +6,7 @@
  * Summary:
  *    Everything we need to know about a location on the screen.
  ************************************************************************/
-#include "position1.h"
+//#include "position1.h"
 
 /*
 Position1::Position1(double x, double y) : x(0.0), y(0.0)

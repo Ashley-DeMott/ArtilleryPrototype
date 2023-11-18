@@ -36,16 +36,13 @@
     <ClCompile Include="projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="angle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="twoDValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="howitzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="position.cpp">
+    <ClCompile Include="angle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

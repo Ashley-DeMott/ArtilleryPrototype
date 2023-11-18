@@ -11,11 +11,13 @@
 
 class TestVelocity;
 
-// Stores horizontal and vertical velocity
+// A type of TwoDValue that represents a speed
 class Velocity : public TwoDValue
 {
 public:
-    // constructors
+    friend TestVelocity; // For unit testing
+
+    // Constructors
     Velocity() : TwoDValue(0.0, 0.0) {}
     Velocity(double total, Angle a) { updateXY(total, a); }
     Velocity(double x, double y) : TwoDValue(x, y) {}
@@ -27,15 +29,13 @@ public:
         return *this;
     }
 
+    // Update the current Velocity based on Acceleration and time
     void update(Acceleration a, double t) {
         setMetersX(computeVelocity(x, a.getMetersX(), t));
         setMetersY(computeVelocity(y, a.getMetersY(), t));
     }
-
-    friend TestVelocity;
-
 protected:
-    // Calculate the new velocity using the equation v = v + a t
+    // Calculate the new x or y velocity using the equation v = v + a t
     static double computeVelocity(double v, double a, double t) {
         return v + a * t;
     }

@@ -2,13 +2,33 @@
  * 1. Name:
  *      Ashley DeMott and Jason Geppelt
  * 2. Assignment Name:
- *      Lab 09: M777 Howitzer - Unit Tests
+ *      Lab 10: M777 Howitzer - Unit Tests
  * 3. Assignment Description:
  *      Simulate firing the M777 howitzer 15mm artillery piece
  * 4. What was the hardest part? Be as specific as possible.
- *      ??
+ *      Ashley decided to redo the Position class since it wasn't
+ *       set up to handle Velocity and Acceleration. Instead of
+ *       leaving the calculation of a new Position up to the
+ *       Projectile class, all the calculations are handled
+ *       within the Acceleration, Velocity, and Position classes
+ *       (Which all inherit from a TwoDValue class, since they all
+ *       share an x and y value, but measure in meters, meters per
+ *       second, and meters per second squared).
+ *      We created unit tests for all the new classes we added, 
+ *       mainly focusing on the Projectile class. It was fairly simple 
+ *       to copy the setup from the initial Equations project, but
+ *       we also needed to test that the Projectile's previous 
+ *       Positions were also beingsaved. 
+ *      After we finished the test, we found that the main program
+ *       wasn't able to generate the Ground and didn't display anything.
+ *       This was because the ratio of meters to pixels had been 
+ *       adjusted within thetest cases, and the zoom was fixed 
+ *       AFTER the initial upperRight Position had been set 
+ *       (using pixels). This caused the window to be really small,
+ *       and sometimes an assert in Ground was thrown since the
+ *       Positions were getting too small to randomly generate.
  * 5. How long did it take for you to complete the assignment?
- *      6 hours
+ *      8 hours
  *****************************************************************/
 
 #include <cassert>      // for ASSERT
@@ -149,7 +169,7 @@ int WINAPI wWinMain(
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
-    // Run the tests    
+    // Run the tests
     testRunner();
     cout << "Tests complete!" << endl;
     

@@ -6,7 +6,6 @@
  * Summary:
  *    Where the ground is located and where the target is drawn
  ************************************************************************/
-
 #include "ground.h"   // for the Ground class definition
 #include "uiDraw.h"   // for random() and drawLine()
 #include <cassert>
