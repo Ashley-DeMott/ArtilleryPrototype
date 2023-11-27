@@ -24,7 +24,7 @@ const double TEXTURE = 3.0;         // size of the small features such as rocks
  ************************************************************************/
 Ground::Ground(const Position & posUpperRight) :
    posUpperRight(posUpperRight),
-   iHowitzer(0),
+    iHowitzer(0),
    iTarget(0),
    ground(nullptr)
 {
@@ -69,7 +69,7 @@ Position Ground::getTarget() const
  * reset because only then can we know its elevation. posHowitzer is by-reference
  * and not const-by-reference for this purpose.
  *************************************************************************/
- void Ground :: reset(Position & posHowitzer)
+ double Ground :: reset(const Position posHowitzer)
  {
    // remember the integer width for later. It will come in handy
    int width = (int)posUpperRight.getPixelsX();
@@ -121,8 +121,8 @@ Position Ground::getTarget() const
       }
    }
 
-   // set the howitzer's elevation
-   posHowitzer.setPixelsY(ground[iHowitzer]);
+   // Return the howitzer's elevation
+   return ground[iHowitzer];
 }
 
 /*****************************************************************

@@ -24,8 +24,9 @@ public:
    Ground(const Position &posUpperRight);
    Ground() : ground(nullptr), iHowitzer(0), iTarget(0) {}
    
+   // TODO: rewrite comment. Improved fidelity by NOT having position set inside method
    // reset the ground and set the vertical position of the howitzer
-   void reset(Position & posHowitzer);
+   double reset(const Position posHowitzer);
 
    // draw the ground on the screen
    void draw(ogstream & gout) const;

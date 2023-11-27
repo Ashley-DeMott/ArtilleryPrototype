@@ -24,6 +24,9 @@ public:
 	Position getPosition() { return pos; }
 	Angle getAngle() { return angle; }
 
+	// Setters
+	void setAltitude(double yPixels) { pos.setPixelsY(yPixels); }
+
 private:
 	Position pos;	// The current Position of the Howitzer
 	Angle angle;	// The current Angle of the Howitzer

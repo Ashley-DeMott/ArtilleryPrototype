@@ -51,4 +51,7 @@ void testRunner()
 
 	cout << "Running Howitzer tests..." << endl;
 	TestHowitzer().run();
+
+
+	cout << "All tests pass!" << endl;
 }
