@@ -29,100 +29,99 @@ using namespace std;
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-   // the first step is to cast the void pointer into a game object. This
-   // is the first step of every single callback function in OpenGL. 
-   Simulator* pSim = (Simulator*)p;
+    // The first step is to cast the void pointer into a game object. This
+    // is the first step of every single callback function in OpenGL. 
+    Simulator* pSim = (Simulator*)p;
 
-   // If the game is over,
-   if (pSim->getGameOver()) {
-       // Reset the Simulator
-       pSim->reset();
-   }
+    // If the game is over,
+    if (pSim->getGameOver()) {
+        // Reset the Simulator
+        pSim->reset();
+    }
 
-   //
-   // accept input
-   //
-   // move a large amount
-   if (pUI->isRight())
-      pSim->rotateGun(0.05);
-   if (pUI->isLeft())
-      pSim->rotateGun(-0.05);
+    //
+    // Accept input
+    //
+    // Move a large amount
+    if (pUI->isRight())
+        pSim->rotateGun(0.05);
+    if (pUI->isLeft())
+        pSim->rotateGun(-0.05);
 
-   // move by a little (depends on current angle)
-   if (pUI->isUp())
-      pSim->rotateGun((pSim->getGunAngle() >= 0 ? -0.003 : 0.003));
-   if (pUI->isDown())
-      pSim->rotateGun((pSim->getGunAngle() >= 0 ? 0.003 : -0.003));
+    // Move by a little (depends on current angle)
+    if (pUI->isUp())
+        pSim->rotateGun((pSim->getGunAngle() >= 0 ? -0.003 : 0.003));
+    if (pUI->isDown())
+        pSim->rotateGun((pSim->getGunAngle() >= 0 ? 0.003 : -0.003));
 
-   // fire that gun
-   if (pUI->isSpace())
-       pSim->shoot();
+    // Fire that gun
+    if (pUI->isSpace())
+        pSim->shoot();
 
-   //
-   // perform all the game logic
-   //
+    //
+    // Perform all the game logic
+    //
 
-   // advance time by half a second.
-   pSim->update(0.5);
+    // Advance time by half a second.
+    pSim->update(0.5);
 
-   //
-   // draw everything
-   //
-   // TODO: Show muzzle flare only when shoot (currenlty shown until first shoot, but works otherwise)
+    //
+    // draw everything
+    //
+    // TODO: Show muzzle flare only when shoot (currenlty shown until first shoot, but works otherwise)
 
-   // Create an outstream
-   ogstream gout(Position(10.0, pSim->getScreenPos().getPixelsY() - 20.0));
+    // Create an outstream
+    ogstream gout(Position(10.0, pSim->getScreenPos().getPixelsY() - 20.0));
 
-   // draw the ground first
-   pSim->drawGround(gout);
+    // Draw the ground first
+    pSim->drawGround(gout);
 
-   // draw the howitzer
-   gout.drawHowitzer(pSim->getGun().getPosition(), pSim->getGunAngle(), pSim->getTime());
+    // Draw the howitzer
+    gout.drawHowitzer(pSim->getGun().getPosition(), pSim->getGunAngle(), pSim->getTime());
 
-   // If there is a Projectile,
-   if (pSim->getProjectile() != nullptr) {
-       // Get the Projectile's path
-       list<Position>* projectilePath = pSim->getProjectile()->getPath();
+    // If there is a Projectile,
+    if (pSim->getProjectile() != nullptr) {
+        // Get the Projectile's path
+        list<Position>* projectilePath = pSim->getProjectile()->getPath();
 
-       // draw the Projectile and its path  
-       int age = 20;
-       for (Position p : (*projectilePath)) {
-           gout.drawProjectile(p, 0.5 * (double)age--);
-       }
-   }
+        // Draw the Projectile and its path  
+        int age = 20;
+        for (Position p : (*projectilePath)) {
+            gout.drawProjectile(p, 0.5 * (double)age--);
+        }
+    }
 
-   // Info text displayed on screen
-   Angle gunAngle = pSim->getGun().getAngle();
-   Projectile* proj = pSim->getProjectile();
+    // Info text displayed on screen
+    Angle gunAngle = pSim->getGun().getAngle();
+    Projectile* proj = pSim->getProjectile();
 
-   gout.setf(ios::fixed | ios::showpoint);
-   gout.precision(1); 
+    gout.setf(ios::fixed | ios::showpoint);
+    gout.precision(1);
 
-   // TODO: Put the output in the right position, currenlty follows Projectile
-   // Set the print position
-   /*Position print = pSim->getScreenPos();
-   print.addPixelsX((print.getPixelsX() / 10.0));
-   gout.setPosition(print);*/
-   //gout.setPosition(Position(12.0, pSim->getScreenPos().getPixelsY() - 20.0));
-   if (pSim->getProjectile() != nullptr)
-       gout.setPosition(pSim->getProjectile()->getPosition());
-   else
-       gout.setPosition(pSim->getGun().getPosition());
+    // TODO: Put the output in the right position, currenlty follows Projectile
+    /*
+    gout.setPosition(??);
+    */
 
-   // If there isn't a Projectile,
-   if (proj == nullptr)
-   {
-       // Show the Howitzer's stats
-       gout << "Gun angle: " << gunAngle.getDegrees() << " degrees\n";
-   }
-   else
-   {
-       // Show the Projectile's stats
-       gout << "Altitude: " << pSim->getAltitude() << " meters\n";
-	   gout << "Speed: " << proj->getVelocity() << " meters\\s\n";
-	   gout << "Distance: " << proj->getPosition().getMetersX() << " meters\n";
-	   gout << "Hangtime: " << proj->getHangTime() << " s\n";
-   }
+    if (pSim->getProjectile() != nullptr)
+        gout.setPosition(pSim->getProjectile()->getPosition());
+    else
+        gout.setPosition(pSim->getGun().getPosition());
+
+    // If there isn't a Projectile,
+    if (proj == nullptr)
+    {
+        // Show the Howitzer's stats
+        gout << "Gun angle: " << gunAngle.getDegrees() << " degrees\n";
+    }
+    else
+    {
+        // Show the Projectile's stats
+        gout << "Altitude: " << pSim->getAltitude() << " meters\n";
+        gout << "Speed: " << proj->getVelocity() << " meters\\s\n";
+        gout << "Distance: " << proj->getPosition().getMetersX() << " meters\n";
+        gout << "Hangtime: " << proj->getHangTime() << " s\n";
+    }
 }
 
 double TwoDValue::metersFromPixels = 40.0;
@@ -143,21 +142,21 @@ int main(int argc, char** argv)
 {
     // Run the tests
     testRunner();
-    
-   // The size of the window
-   Position().setZoom(40.0); // 42 meters equals 1 pixel
-   Position ptUpperRight;
-   ptUpperRight.setPixelsX(700.0);
-   ptUpperRight.setPixelsY(500.0);
-   
-   // Initialize OpenGL
-   Interface ui(0, NULL, "Team 2 - Artillery Prototype", ptUpperRight);
-      
-   // Initialize the demo
-   Simulator sim(ptUpperRight);
 
-   // set everything into action
-   ui.run(callBack, &sim);
+    // The size of the window
+    Position().setZoom(40.0); // 42 meters equals 1 pixel
+    Position ptUpperRight;
+    ptUpperRight.setPixelsX(700.0);
+    ptUpperRight.setPixelsY(500.0);
 
-   return 0;
+    // Initialize OpenGL
+    Interface ui(0, NULL, "Team 2 - Artillery Prototype", ptUpperRight);
+
+    // Initialize the demo
+    Simulator sim(ptUpperRight);
+
+    // Set everything into action
+    ui.run(callBack, &sim);
+
+    return 0;
 }

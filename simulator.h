@@ -3,28 +3,26 @@
 #include "projectile.h"
 #include "howitzer.h"
 
-const double SHOOT_SPEED = 827.0;
-const double TARGET_SIZE = 10.0;
+const double SHOOT_SPEED = 827.0; // TODO: Put in Howitzer?
+const double TARGET_SIZE = 10.0; // TODO: Move variable to a wider scope, share with OpenGL's drawing of the target
 
 /*************************************************************************
  * Simulator
- * Shows a game
+ * Simulates the firing of a Projectile from a Howitzer
  *************************************************************************/
 class Simulator
 {
 private:
-    const Position  ptUpperRight;  // size of the screen
-    double time;                   // amount of time since the last firing
-    bool gameOver;
+    const Position  ptUpperRight;   // size of the screen
+    double time;                    // amount of time since the last firing
+    bool gameOver;                  // If the Simulator is finished (the target has been hit)
 
     Ground ground;  // the ground
-    Howitzer gun;   // the gun
-    Projectile* p; // Change to pointer, defaults to nullptr
+    Howitzer gun;   // the Howitzer gun
+    Projectile* p;  // the M795 Projecitle, nullptr if it hasn't been fired
 
     // Check if the Projectile is out of bounds
-    bool outOfBounds() {
-        return p->getPosition().getMetersX() < 0.0 || p->getPosition().getMetersX() > ptUpperRight.getMetersX();
-    }
+    bool outOfBounds() { return p->getPosition().getMetersX() < 0.0 || p->getPosition().getMetersX() > ptUpperRight.getMetersX(); }
 public:
     Simulator(Position ptUpperRight) : ptUpperRight(ptUpperRight), ground(ptUpperRight), p(nullptr) { reset(); }
 
@@ -64,31 +62,28 @@ public:
     double getTime() { return time; }
 
     // Return the altitude of the Simulator's Projectile
-    double getAltitude() {
-        return ground.getAltitudeMeters(p->getPosition());
-    }
+    double getAltitude() { return ground.getAltitudeMeters(p->getPosition()); }
 
+    // The game is over if the Target has been hit
+    bool getGameOver() { return gameOver; }
 
     // Shoot a new projectile
     void shoot() {
         // If there isn't a Projectile,
-        if (p == nullptr) {     
+        if (p == nullptr) {
             // Create and shoot a new Projectile
             p = new Projectile(gun.getPosition(), Velocity(SHOOT_SPEED, gun.getAngle()));
-            
+
             // Reset time since firing to 0
             time = 0.0;
         }
     }
 
-    // The game is over if the Target has been hit
-    bool getGameOver() { return gameOver; }
-
     // Return if the Projecile has hit the Target
     bool hitTarget() {
         return !outOfBounds() /* The Projectile is not out of bounds */
             && getAltitude() <= 0.0 /* The Projectile has hit the ground */
-            && p->getPosition().getPixelsX() < ground.getTarget().getPixelsX() + (TARGET_SIZE / 2.0) 
+            && p->getPosition().getPixelsX() < ground.getTarget().getPixelsX() + (TARGET_SIZE / 2.0)
             && p->getPosition().getPixelsX() > ground.getTarget().getPixelsX() - (TARGET_SIZE / 2.0); /* And within the horizontal bounds of the target*/
     }
 
