@@ -30,41 +30,43 @@ void callBack(const Interface* pUI, void* p)
 {
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Simulator* pDemo = (Simulator*)p;
+   Simulator* pSim = (Simulator*)p;
+
+   // If the game is over,
+   if (pSim->getGameOver()) {
+       Position ptUpperRight = pSim->getScreenPos();
+       delete pSim; // Delete the old Simulator
+       pSim = new Simulator(ptUpperRight); // Create a new Simulator, using same screen size
+   }
 
    //
    // accept input
    //
    // move a large amount
    if (pUI->isRight())
-      pDemo->rotateGun(0.05);
+      pSim->rotateGun(0.05);
    if (pUI->isLeft())
-      pDemo->rotateGun(-0.05);
+      pSim->rotateGun(-0.05);
 
    // move by a little
    if (pUI->isUp())
-      pDemo->rotateGun((pDemo->getGunAngle() >= 0 ? -0.003 : 0.003));
+      pSim->rotateGun((pSim->getGunAngle() >= 0 ? -0.003 : 0.003));
    if (pUI->isDown())
-      pDemo->rotateGun((pDemo->getGunAngle() >= 0 ? 0.003 : -0.003));
+      pSim->rotateGun((pSim->getGunAngle() >= 0 ? 0.003 : -0.003));
 
    // fire that gun
    if (pUI->isSpace())
-       pDemo->shoot();
+       pSim->shoot();
 
    //
    // perform all the game logic
    //
-   // TODO: Move section to Simulator::update()
-   // TODO: Add checks for if target was hit
 
-   // advance time by half a second. TODO: only when there is a projectile
-   pDemo->updateTime(0.5);
-
-   // Get the Projectile's path
-   Position projectilePath[20]; // = pDemo->getProjectilePath();
-   std::fill_n(projectilePath, 20, Position(0.0, 0.0));
+   // advance time by half a second.
+   pSim->update(0.5);
 
    // TODO: remove, all movement is done within Projectile
+   /*
    // move the projectile across the screen
    for (int i = 0; i < 20; i++)
    {
@@ -72,34 +74,64 @@ void callBack(const Interface* pUI, void* p)
       double x = projectilePath[i].getPixelsX();
       x -= 1.0;
       if (x < 0)
-         x = pDemo->getScreenPos().getPixelsX();
+         x = pSim->getScreenPos().getPixelsX();
       projectilePath[i].setPixelsX(x);
-   }
+   }*/
 
    //
    // draw everything
    //
-   // TODO: Show gun angle when there is no Projectile (Projectile* == nullptr)
-   // TODO: Show muzzle flare
-   // TODO: Show additional stats for Projectile
+   // TODO: Show muzzle flare only when shoot
 
-   ogstream gout(Position(10.0, pDemo->getScreenPos().getPixelsY() - 20.0));
+   // Create an outstream
+   ogstream gout(Position(10.0, pSim->getScreenPos().getPixelsY() - 20.0));
 
    // draw the ground first
-   pDemo->drawGround(gout);
+   pSim->drawGround(gout);
 
    // draw the howitzer
-   gout.drawHowitzer(pDemo->getGunPos(), pDemo->getGunAngle(), pDemo->getTime());
+   gout.drawHowitzer(pSim->getGun().getPosition(), pSim->getGunAngle(), pSim->getTime());
 
-   // draw the projectile and its path     
-   for (int i = 0; i < 20; i++)
-      gout.drawProjectile(projectilePath[i], 0.5 * (double)i);
+   // If there is a Projectile,
+   if (pSim->getProjectile() != nullptr) {
+       // Get the Projectile's path
+       list<Position>* projectilePath = pSim->getProjectile()->getPath();
 
-   // draw some text on the screen
+       // draw the Projectile and its path  
+       int age = 20;
+       for (Position p : (*projectilePath)) {
+           gout.drawProjectile(p, 0.5 * (double)age--);
+       }
+   }
+
+   // Info text displayed on screen
+   Angle gunAngle = pSim->getGun().getAngle();
+   Projectile* proj = pSim->getProjectile();
+
    gout.setf(ios::fixed | ios::showpoint);
-   gout.precision(1);
-   gout << "Time since the bullet was fired: "
-        << pDemo->getTime() << "s\n";
+   gout.precision(1); 
+
+   /*
+   // Set the print position
+   Position print = pSim->getScreenPos();
+   print.addPixelsX(print.getPixelsX() / 3.0);
+   gout.setPosition(print);*/
+
+   // If there isn't a Projectile,
+   if (proj == nullptr)
+   {
+       // Show the Howitzer's stats
+       gout << "Gun angle: " << gunAngle.getDegrees() << " degrees\n";
+   }
+   else
+   {
+       // Show the Projectile's stats
+	   gout << "Altitude: " << pSim->getAltitude() <<  "meters\n";
+       gout << "Y Pos: " << proj->getPosition().getMetersY() << "meters\n";
+	   gout << "Speed: " << proj->getVelocity() << "meters\\s\n";
+	   gout << "Distance: " << proj->getPosition().getMetersX() << "meters\n";
+	   gout << "Hangtime: " << proj->getHangTime() << "s\n";
+   }
 }
 
 double TwoDValue::metersFromPixels = 40.0;

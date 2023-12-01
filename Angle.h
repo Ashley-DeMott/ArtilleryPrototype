@@ -66,6 +66,95 @@ public:
 	***************************************************/
 	ostream& display(ostream& out) const;
 
+
+	/**************************************************
+		* OPERATOR OVERLOADING
+		* Overloading operators such as:
+		* - Assignment		=
+		* - Negative		-
+		* - Equality		= and !=
+		* - Insertion		<<
+		* - Extraction		>>
+		* - Increment		++
+		* - Decrement		--
+		***************************************************/
+		// Assingment
+	Angle& operator=(const Angle& rhs)
+	{
+		radians = rhs.radians;
+		return *this;
+	}
+
+	// Negative
+	Angle operator-()
+	{
+		// Remove 180 degrees
+		return Angle((getDegrees() - 180));
+	}
+
+	// Equality
+	bool operator==(const Angle& rhs) const
+	{
+		return radians == rhs.radians;
+	}
+
+	// Inequality
+	bool operator!=(const Angle& rhs) const
+	{
+		return !(radians == rhs.radians);
+	}
+
+	// Insertion to ostream
+	friend void operator<<(ostream& out, Angle& a)
+	{
+		out.setf(std::ios::fixed);
+		out.setf(std::ios::showpoint);
+		out.precision(1);
+
+		out << a.getDegrees();
+	}
+
+	// Extraction from istream
+	friend void operator>>(istream& in, Angle& a)
+	{
+		float value;
+		in >> value;
+		// Error checking
+		if (!in.fail()) {
+			a.setDegrees(value);
+		}
+	}
+
+	// Prefix and Postfix increment
+	Angle& operator++() // ++Angle 
+	{
+		radians += TWO_PI / 360.0; // Add 1 degree
+		radians = normalize(radians);
+		return *this;
+	}
+
+	Angle operator++(int) // Angle++
+	{
+		Angle old = *this;
+		operator++();
+		return old;
+	}
+
+	// Prefix and postfix degrement
+	Angle& operator--() // --Angle
+	{
+		radians -= TWO_PI / 360.0; // Minus 1 degree
+		radians = normalize(radians);
+		return *this;
+	}
+
+	Angle operator--(int) // Angle--
+	{
+		Angle old = *this;
+		operator--();
+		return old;
+	}
+
 private:
 	double radians; // The Angle in radians
 

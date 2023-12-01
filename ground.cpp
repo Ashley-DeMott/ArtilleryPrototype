@@ -51,6 +51,17 @@ double Ground::getElevationMeters(const Position& pos) const
 }
 
 /************************************************************************
+ * GROUND :: GET ALTITUDE METERS
+ * Determine the altitude of the given Position, in meters
+ ************************************************************************/
+double Ground::getAltitudeMeters(const Position& pos) const {
+    double elevation = getElevationMeters(pos);
+
+    // Get the difference between the Position's Y value and the ground's elevation
+    return pos.getMetersY() - elevation;
+}
+
+/************************************************************************
  * GROUND :: GET TARGET 
  * Where the the target located?
  ************************************************************************/

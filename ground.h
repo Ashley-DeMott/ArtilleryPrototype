@@ -34,6 +34,8 @@ public:
    // determine how high the Position is off the ground
    double getElevationMeters(const Position & pos) const;
 
+   double getAltitudeMeters(const Position& pos) const;
+
    // where the the target located?
    Position getTarget() const;
 

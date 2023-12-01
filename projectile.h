@@ -22,12 +22,12 @@ const int PATH_SIZE = 20;
 class Projectile {
 
 public:
-	// unit test access
+	// Unit test access
 	friend TestProjectile;
 
 	// Constructors
 	Projectile() : Projectile(Position(), Velocity()) {} // Set all attributes se the default values
-	Projectile(Position posStart, Velocity velStart) : currentPos(posStart), velocity(velStart), currentAngle(velStart.getAngle()) {}
+	Projectile(Position posStart, Velocity velStart) : currentPos(posStart), velocity(velStart), currentAngle(velStart.getAngle()), path({}) {}
 	
 	// Destructor, clear list of Positions (might not be necessary?)
 	~Projectile() {	path.clear(); }
@@ -36,12 +36,21 @@ public:
 	void update(double time);
 
 	// Get the current Position of the Projectile
-	Position getPosition() { return currentPos; };
+	Position& getPosition() { return currentPos; }
+
+	// Get the current Velocity of the Projecile
+	Velocity& getVelocity() { return velocity; }
+
+	// Get the Projectile's path
+	list<Position>* getPath() { return &path; }
+
+    double getHangTime() const { return hangTime; }
+    void setHangTime(double newHangTime) { hangTime = newHangTime; }
 
 private:
 	Position currentPos = Position(0, 0);	// The current positions of the Projectile
 	Velocity velocity = Velocity(0, 0);		// The current speed of the Projectile
-	list<Position> path = {};				// The last 20 positions of the Projectile
+	list<Position> path;				// The last 20 positions of the Projectile
 
 	Angle currentAngle = Angle();			// The current Angle of the Projectile
 	double hangTime = 0.0;					// How long the Projectile has been in the air
