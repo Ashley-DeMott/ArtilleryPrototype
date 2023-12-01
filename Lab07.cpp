@@ -6,9 +6,10 @@
  * 3. Assignment Description:
  *      Simulate firing the M777 howitzer 15mm artillery piece
  * 4. What was the hardest part? Be as specific as possible.
- *      
+ *      Get Elevation was mislabeled in the comments, only gets ground elevation, not altitude (distance between point and the ground).
+ *      Issues with deleting the simulator, could just do a reset (same instance, but reset attributes)
  * 5. How long did it take for you to complete the assignment?
- *       hours
+ *      6 hours
  *****************************************************************/
 
 #include <cassert>      // for ASSERT
@@ -34,9 +35,8 @@ void callBack(const Interface* pUI, void* p)
 
    // If the game is over,
    if (pSim->getGameOver()) {
-       Position ptUpperRight = pSim->getScreenPos();
-       delete pSim; // Delete the old Simulator
-       pSim = new Simulator(ptUpperRight); // Create a new Simulator, using same screen size
+       // Reset the Simulator
+       pSim->reset();
    }
 
    //
@@ -48,7 +48,7 @@ void callBack(const Interface* pUI, void* p)
    if (pUI->isLeft())
       pSim->rotateGun(-0.05);
 
-   // move by a little
+   // move by a little (depends on current angle)
    if (pUI->isUp())
       pSim->rotateGun((pSim->getGunAngle() >= 0 ? -0.003 : 0.003));
    if (pUI->isDown())
@@ -65,23 +65,10 @@ void callBack(const Interface* pUI, void* p)
    // advance time by half a second.
    pSim->update(0.5);
 
-   // TODO: remove, all movement is done within Projectile
-   /*
-   // move the projectile across the screen
-   for (int i = 0; i < 20; i++)
-   {
-      // this bullet is moving left at 1 pixel per frame
-      double x = projectilePath[i].getPixelsX();
-      x -= 1.0;
-      if (x < 0)
-         x = pSim->getScreenPos().getPixelsX();
-      projectilePath[i].setPixelsX(x);
-   }*/
-
    //
    // draw everything
    //
-   // TODO: Show muzzle flare only when shoot
+   // TODO: Show muzzle flare only when shoot (currenlty shown until first shoot, but works otherwise)
 
    // Create an outstream
    ogstream gout(Position(10.0, pSim->getScreenPos().getPixelsY() - 20.0));
@@ -111,11 +98,16 @@ void callBack(const Interface* pUI, void* p)
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1); 
 
-   /*
+   // TODO: Put the output in the right position, currenlty follows Projectile
    // Set the print position
-   Position print = pSim->getScreenPos();
-   print.addPixelsX(print.getPixelsX() / 3.0);
+   /*Position print = pSim->getScreenPos();
+   print.addPixelsX((print.getPixelsX() / 10.0));
    gout.setPosition(print);*/
+   //gout.setPosition(Position(12.0, pSim->getScreenPos().getPixelsY() - 20.0));
+   if (pSim->getProjectile() != nullptr)
+       gout.setPosition(pSim->getProjectile()->getPosition());
+   else
+       gout.setPosition(pSim->getGun().getPosition());
 
    // If there isn't a Projectile,
    if (proj == nullptr)
@@ -126,11 +118,10 @@ void callBack(const Interface* pUI, void* p)
    else
    {
        // Show the Projectile's stats
-	   gout << "Altitude: " << pSim->getAltitude() <<  "meters\n";
-       gout << "Y Pos: " << proj->getPosition().getMetersY() << "meters\n";
-	   gout << "Speed: " << proj->getVelocity() << "meters\\s\n";
-	   gout << "Distance: " << proj->getPosition().getMetersX() << "meters\n";
-	   gout << "Hangtime: " << proj->getHangTime() << "s\n";
+       gout << "Altitude: " << pSim->getAltitude() << " meters\n";
+	   gout << "Speed: " << proj->getVelocity() << " meters\\s\n";
+	   gout << "Distance: " << proj->getPosition().getMetersX() << " meters\n";
+	   gout << "Hangtime: " << proj->getHangTime() << " s\n";
    }
 }
 

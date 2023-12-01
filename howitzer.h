@@ -25,6 +25,7 @@ public:
 	Angle getAngle() { return angle; }
 
 	// Setters
+	void setPosition(Position p) { pos = p; }
 	void setAltitude(double yPixels) { pos.setPixelsY(yPixels); }
 
 private:
