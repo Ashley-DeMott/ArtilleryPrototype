@@ -68,7 +68,6 @@ void callBack(const Interface* pUI, void* p)
     //
     // draw everything
     //
-    // TODO: Show muzzle flare only when shoot (currenlty shown until first shoot, but works otherwise)
 
     // Create an outstream
     ogstream gout(Position(10.0, pSim->getScreenPos().getPixelsY() - 20.0));
@@ -95,18 +94,17 @@ void callBack(const Interface* pUI, void* p)
     Angle gunAngle = pSim->getGun().getAngle();
     Projectile* proj = pSim->getProjectile();
 
+    gout.setPosition(pSim->getStatDisplay());
     gout.setf(ios::fixed | ios::showpoint);
     gout.precision(1);
 
-    // TODO: Put the output in the right position, currenlty follows Projectile
     /*
-    gout.setPosition(??);
-    */
-
+    // Status follows gun or Projectile
     if (pSim->getProjectile() != nullptr)
         gout.setPosition(pSim->getProjectile()->getPosition());
     else
         gout.setPosition(pSim->getGun().getPosition());
+        */
 
     // If there isn't a Projectile,
     if (proj == nullptr)
@@ -118,7 +116,7 @@ void callBack(const Interface* pUI, void* p)
     {
         // Show the Projectile's stats
         gout << "Altitude: " << pSim->getAltitude() << " meters\n";
-        gout << "Speed: " << proj->getVelocity() << " meters\\s\n";
+        gout << "Speed: " << proj->getVelocity() << "\n";
         gout << "Distance: " << proj->getPosition().getMetersX() << " meters\n";
         gout << "Hangtime: " << proj->getHangTime() << " s\n";
     }

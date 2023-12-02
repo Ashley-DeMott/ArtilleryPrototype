@@ -144,7 +144,6 @@
     <ClCompile Include="howitzer.cpp" />
     <ClCompile Include="Lab07.cpp" />
     <ClCompile Include="twoDValue.cpp" />
-    <ClCompile Include="position1.cpp" />
     <ClCompile Include="projectile.cpp" />
     <ClCompile Include="testRunner.cpp" />
     <ClCompile Include="uiDraw.cpp" />
@@ -163,13 +162,11 @@
     <ClInclude Include="testVelocity.h" />
     <ClInclude Include="twoDValue.h" />
     <ClInclude Include="ground.h" />
-    <ClInclude Include="position1.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="projectile.h" />
     <ClInclude Include="testRunner.h" />
     <ClInclude Include="testAngle.h" />
     <ClInclude Include="testGround.h" />
-    <ClInclude Include="testPosition1.h" />
     <ClInclude Include="testProjectile.h" />
     <ClInclude Include="uiDraw.h" />
     <ClInclude Include="uiInteract.h" />

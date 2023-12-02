@@ -34,6 +34,16 @@ public:
         setMetersX(computeVelocity(x, a.getMetersX(), t));
         setMetersY(computeVelocity(y, a.getMetersY(), t));
     }
+
+   /******************************************
+   * TwoDValue insertion
+   *       Display coordinates on the screen
+   *****************************************/
+    friend std::ostream& operator<<(std::ostream& out, const Velocity& v)
+    {
+       out << "" << v.computeTotalComponent(v.getMetersX(), v.getMetersY()) << " m/s";       
+       return out;
+    }
 protected:
     // Calculate the new x or y velocity using the equation v = v + a t
     static double computeVelocity(double v, double a, double t) {

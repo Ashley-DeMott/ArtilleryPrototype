@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="position1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="testRunner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -50,13 +47,7 @@
     <ClInclude Include="ground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="position1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="testRunner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="testPosition1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="uiDraw.h">

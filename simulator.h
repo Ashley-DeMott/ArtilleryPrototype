@@ -13,93 +13,105 @@ const double TARGET_SIZE = 10.0; // TODO: Move variable to a wider scope, share 
 class Simulator
 {
 private:
-    const Position  ptUpperRight;   // size of the screen
-    double time;                    // amount of time since the last firing
-    bool gameOver;                  // If the Simulator is finished (the target has been hit)
+   const Position  ptUpperRight;   // size of the screen
+   Position statDisplay;     // Where the stats will be drawn
+   double time;                    // amount of time since the last firing
+   bool gameOver;                  // If the Simulator is finished (the target has been hit)
 
-    Ground ground;  // the ground
-    Howitzer gun;   // the Howitzer gun
-    Projectile* p;  // the M795 Projecitle, nullptr if it hasn't been fired
+   Ground ground;  // the ground
+   Howitzer gun;   // the Howitzer gun
+   Projectile* p;  // the M795 Projecitle, nullptr if it hasn't been fired
 
-    // Check if the Projectile is out of bounds
-    bool outOfBounds() { return p->getPosition().getMetersX() < 0.0 || p->getPosition().getMetersX() > ptUpperRight.getMetersX(); }
+   // Check if the Projectile is out of bounds
+   bool outOfBounds() { return p->getPosition().getMetersX() < 0.0 || p->getPosition().getMetersX() > ptUpperRight.getMetersX(); }
 public:
-    Simulator(Position ptUpperRight) : ptUpperRight(ptUpperRight), ground(ptUpperRight), p(nullptr) { reset(); }
+   // Create a Simulator with the given screen size, create a ground with the given screen size
+   Simulator(Position ptUpperRight) : ptUpperRight(ptUpperRight), ground(ptUpperRight), p(nullptr), statDisplay(ptUpperRight) {
+      // Position the text to be in the upper right of the screen (with some offset)
+      statDisplay.addMetersX(-9000.0);
+      statDisplay.addMetersY(-1000.0);
 
-    void reset() {
-        gameOver = false;
-        time = 0.0;
+      // Reset the Simulator to its default values
+      reset(); 
+   }
 
-        // Set the horizontal position of the howitzer to a random value between 0.0 and the screen's width
-        gun.setPosition(Position(random(0.0, ptUpperRight.getMetersX()), 0.0));
+   void reset() {
+      /* Reset starting values */
+      gameOver = false;
+      time = -1.0; // A Projectile has not been shot
 
-        // Generate the ground and set the vertical position of the howitzer
-        gun.setAltitude(ground.reset(gun.getPosition())); // Ground reset will determine the y position
-    }
+      // Set the horizontal position of the howitzer to a random value between 0.0 and the screen's width
+      gun.setPosition(Position(random(0.0, ptUpperRight.getMetersX()), 0.0));
 
-    // Return a reference to the Simulator's screen size
-    const Position& getScreenPos() { return ptUpperRight; }
+      // Generate the ground and set the vertical position of the howitzer
+      gun.setAltitude(ground.reset(gun.getPosition())); // Ground reset will determine the y position
+   }
 
-    // Return a reference to the Simulator's Ground
-    Ground& getGround() { return ground; }
+   // Return a reference to the Simulator's screen size
+   const Position& getScreenPos() { return ptUpperRight; }
 
-    // Draw the Ground to the given outstream
-    void drawGround(ogstream& out) const { ground.draw(out); }
+   // Return a reference to the Simulator's Ground
+   Ground& getGround() { return ground; }
 
-    // Return a pointer to the Simulator's current Projectile
-    Projectile* getProjectile() { return p; }
+   // Draw the Ground to the given outstream
+   void drawGround(ogstream& out) const { ground.draw(out); }
 
-    // Return a reference to the Simulator's gun
-    Howitzer& getGun() { return gun; }
+   // Return a pointer to the Simulator's current Projectile
+   Projectile* getProjectile() { return p; }
 
-    // Get the Gun's current angle (in radians)
-    double getGunAngle() { return gun.getAngle().getRadians(); }
+   // Return a reference to the Simulator's gun
+   Howitzer& getGun() { return gun; }
 
-    // Given a change in radians, rotate the Howitzer
-    void rotateGun(double dRadians) { gun.rotate(dRadians); }
+   // Get the Gun's current angle (in radians)
+   double getGunAngle() { return gun.getAngle().getRadians(); }
 
-    // Time the current Projectile has been in the air
-    double getTime() { return time; }
+   // Given a change in radians, rotate the Howitzer
+   void rotateGun(double dRadians) { gun.rotate(dRadians); }
 
-    // Return the altitude of the Simulator's Projectile
-    double getAltitude() { return ground.getAltitudeMeters(p->getPosition()); }
+   // Time the current Projectile has been in the air
+   double getTime() { return time; }
 
-    // The game is over if the Target has been hit
-    bool getGameOver() { return gameOver; }
+   // Return the altitude of the Simulator's Projectile
+   double getAltitude() { return ground.getAltitudeMeters(p->getPosition()); }
 
-    // Shoot a new projectile
-    void shoot() {
-        // If there isn't a Projectile,
-        if (p == nullptr) {
-            // Create and shoot a new Projectile
-            p = new Projectile(gun.getPosition(), Velocity(SHOOT_SPEED, gun.getAngle()));
+   Position& getStatDisplay() { return statDisplay; }
 
-            // Reset time since firing to 0
-            time = 0.0;
-        }
-    }
+   // The game is over if the Target has been hit
+   bool getGameOver() { return gameOver; }
 
-    // Return if the Projecile has hit the Target
-    bool hitTarget() {
-        return !outOfBounds() /* The Projectile is not out of bounds */
-            && getAltitude() <= 0.0 /* The Projectile has hit the ground */
-            && p->getPosition().getPixelsX() < ground.getTarget().getPixelsX() + (TARGET_SIZE / 2.0)
-            && p->getPosition().getPixelsX() > ground.getTarget().getPixelsX() - (TARGET_SIZE / 2.0); /* And within the horizontal bounds of the target*/
-    }
+   // Shoot a new projectile
+   void shoot() {
+      // If there isn't a Projectile,
+      if (p == nullptr) {
+         // Create and shoot a new Projectile
+         p = new Projectile(gun.getPosition(), Velocity(SHOOT_SPEED, gun.getAngle()));
 
-    // Update the simulator
-    void update(double dTime) {
-        // If there is a Projectile (not a nullptr)
-        if (p != nullptr) {
-            time += dTime; // update the total time
-            p->update(dTime); // update the Projectile's position
+         // Reset time since firing to 0
+         time = 0.0;
+      }
+   }
 
-            // If the Projectile has hit the Ground,
-            if (getAltitude() <= 0.0 || outOfBounds()) {
-                gameOver = hitTarget(); // update gameOver
-                delete p; // delete the old Projectile
-                p = nullptr; // Reset to nullptr
-            }
-        }
-    }
+   // Return if the Projecile has hit the Target
+   bool hitTarget() {
+      return !outOfBounds() /* The Projectile is not out of bounds */
+         && getAltitude() <= 0.0 /* The Projectile has hit the ground */
+         && p->getPosition().getPixelsX() < ground.getTarget().getPixelsX() + (TARGET_SIZE / 2.0)
+         && p->getPosition().getPixelsX() > ground.getTarget().getPixelsX() - (TARGET_SIZE / 2.0); /* And within the horizontal bounds of the target*/
+   }
+
+   // Update the simulator
+   void update(double dTime) {
+      // If there is a Projectile (not a nullptr)
+      if (p != nullptr) {
+         time += dTime; // update the total time
+         p->update(dTime); // update the Projectile's position
+
+         // If the Projectile has hit the Ground,
+         if (getAltitude() <= 0.0 || outOfBounds()) {
+            gameOver = hitTarget(); // update gameOver
+            delete p; // delete the old Projectile
+            p = nullptr; // Reset to nullptr
+         }
+      }
+   }
 };

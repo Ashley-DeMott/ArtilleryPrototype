@@ -127,7 +127,7 @@ double interpolation(const double(&a)[T][2], const double goal) {
     double value = (((key - key1) * (value2 - value1)) / (key2 - key1)) + value1;
 
     // Calculated value must be between the two table values
-    assert((value < value1 && value > value2) || (value > value1 && value < value2));
+    assert((value <= value1 && value >= value2) || (value >= value1 && value <= value2));
     return value;
 }
 
