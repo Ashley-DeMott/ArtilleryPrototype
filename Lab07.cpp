@@ -6,10 +6,16 @@
  * 3. Assignment Description:
  *      Simulate firing the M777 howitzer 15mm artillery piece
  * 4. What was the hardest part? Be as specific as possible.
- *      Get Elevation was mislabeled in the comments, only gets ground elevation, not altitude (distance between point and the ground).
- *      Issues with deleting the simulator, could just do a reset (same instance, but reset attributes)
+ *      Get Elevation was mislabeled in its comments since it only gets the
+ *       Ground's elevation and does not actually calculate the given
+ *       Position's altitude (distance between point and the ground).
+ *      At first, we wanted to create a whole new Simulator every time
+ *       the target was hit, but found it much simpler to just reset
+ *       the current Simulator.
+ *      It was also difficult to gauge where the status info needed to
+ *       be displayed, but that only took some guessing and checking.
  * 5. How long did it take for you to complete the assignment?
- *      6 hours
+ *      8hours
  *****************************************************************/
 
 #include <cassert>      // for ASSERT

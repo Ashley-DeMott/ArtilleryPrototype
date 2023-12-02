@@ -28,8 +28,8 @@ public:
    // Create a Simulator with the given screen size, create a ground with the given screen size
    Simulator(Position ptUpperRight) : ptUpperRight(ptUpperRight), ground(ptUpperRight), p(nullptr), statDisplay(ptUpperRight) {
       // Position the text to be in the upper right of the screen (with some offset)
-      statDisplay.addMetersX(-9000.0);
-      statDisplay.addMetersY(-1000.0);
+      statDisplay.addMetersX(-7000.0);
+      statDisplay.addMetersY(-750.0);
 
       // Reset the Simulator to its default values
       reset(); 
