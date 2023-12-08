@@ -143,6 +143,7 @@
     <ClCompile Include="ground.cpp" />
     <ClCompile Include="howitzer.cpp" />
     <ClCompile Include="Lab07.cpp" />
+    <ClCompile Include="simulator.cpp" />
     <ClCompile Include="twoDValue.cpp" />
     <ClCompile Include="projectile.cpp" />
     <ClCompile Include="testRunner.cpp" />

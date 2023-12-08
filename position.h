@@ -9,7 +9,7 @@
 #pragma once
 #include "velocity.h"
 
-class TestPosition;
+class TestPosition; // Forward declartion
 
 class Position : public TwoDValue
 {

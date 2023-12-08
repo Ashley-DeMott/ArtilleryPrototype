@@ -9,11 +9,12 @@
 #pragma once
 #include "position.h"
 
+// Foward declaration for Test Cases
 class TestHowitzer;
 
 class Howitzer {
 public:
-	friend TestHowitzer;
+	friend TestHowitzer; // For unit testing
 
 	Howitzer(Position p = Position(), Angle a = Angle()) : pos(p), angle(a) {};
 	Howitzer(const Howitzer& rhs) : pos(rhs.pos), angle(rhs.angle) {} // Set to the values of another Howitzer 

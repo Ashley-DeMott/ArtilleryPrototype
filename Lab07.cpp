@@ -26,6 +26,8 @@
 #include "testRunner.h"
 using namespace std;
 
+const double METERS_FROM_PIXELS = 40.0;
+
 /*************************************
  * All the interesting work happens here, when
  * I get called back from OpenGL to draw a frame.
@@ -46,7 +48,7 @@ void callBack(const Interface* pUI, void* p)
     }
 
     //
-    // Accept input
+    // User Input
     //
     // Move a large amount
     if (pUI->isRight())
@@ -64,16 +66,8 @@ void callBack(const Interface* pUI, void* p)
     if (pUI->isSpace())
         pSim->shoot();
 
-    //
-    // Perform all the game logic
-    //
-
-    // Advance time by half a second.
+    // Update the Simulator, advancing time by half a second.
     pSim->update(0.5);
-
-    //
-    // draw everything
-    //
 
     // Create an outstream
     ogstream gout(Position(10.0, pSim->getScreenPos().getPixelsY() - 20.0));
@@ -105,12 +99,12 @@ void callBack(const Interface* pUI, void* p)
     gout.precision(1);
 
     /*
-    // Status follows gun or Projectile
+    // Fun features: status text follows the gun or Projectile
     if (pSim->getProjectile() != nullptr)
         gout.setPosition(pSim->getProjectile()->getPosition());
     else
         gout.setPosition(pSim->getGun().getPosition());
-    */
+        */    
 
     // If there isn't a Projectile,
     if (proj == nullptr)
@@ -123,12 +117,12 @@ void callBack(const Interface* pUI, void* p)
         // Show the Projectile's stats
         gout << "Altitude: " << pSim->getAltitude() << " m";
         gout << "\nSpeed: " << proj->getVelocity();
-        gout << "\nDistance: " << proj->getPosition().getMetersX() << " m";
+        gout << "\nDistance: " << pSim->getDistance() << " m";
         gout << "\nHangtime: " << proj->getHangTime() << " s";
     }
 }
 
-double TwoDValue::metersFromPixels = 40.0;
+double TwoDValue::metersFromPixels = METERS_FROM_PIXELS;
 
 /*********************************
  * Initialize the simulation and set it in motion
@@ -148,7 +142,7 @@ int main(int argc, char** argv)
     testRunner();
 
     // The size of the window
-    Position().setZoom(40.0); // 42 meters equals 1 pixel
+    Position().setZoom(METERS_FROM_PIXELS); // 42 meters equals 1 pixel
     Position ptUpperRight;
     ptUpperRight.setPixelsX(700.0);
     ptUpperRight.setPixelsY(500.0);
@@ -156,7 +150,7 @@ int main(int argc, char** argv)
     // Initialize OpenGL
     Interface ui(0, NULL, "Team 2 - Artillery Prototype", ptUpperRight);
 
-    // Initialize the demo
+    // Initialize the Simulator
     Simulator sim(ptUpperRight);
 
     // Set everything into action

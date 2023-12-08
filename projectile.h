@@ -30,7 +30,7 @@ public:
 	Projectile(Position posStart, Velocity velStart) : currentPos(posStart), velocity(velStart), currentAngle(velStart.getAngle()), path({}) {}
 	Projectile(const Projectile& rhs) : currentPos(rhs.currentPos), velocity(rhs.velocity), currentAngle(rhs.currentAngle), path(rhs.path) {} // Set to the values of another Projectile
 
-	// Destructor, clear list of Positions (might not be necessary?)
+	// Destructor, clear list of Positions
 	~Projectile() {	path.clear(); }
 
 	// Update the position of the Projectile according to how much time has passed
@@ -45,6 +45,7 @@ public:
 	// Get the Projectile's path
 	list<Position>* getPath() { return &path; }
 
+	// The time the projectile has been in the air
     double getHangTime() const { return hangTime; }
     void setHangTime(double newHangTime) { hangTime = newHangTime; }
 
