@@ -40,8 +40,8 @@ public:
     {
         return sqrt((pos1.getMetersX() - pos2.getMetersX()) * (pos1.getMetersX() - pos2.getMetersX()) +
             (pos1.getMetersY() - pos2.getMetersY()) * (pos1.getMetersY() - pos2.getMetersY()));
-    }    
-
+    }
+    
 private:
     // Calculate the x or y value using the equation s = s + v t + 1/2 a t^2
     static double updatePosition(double s, double v, double a, double t)

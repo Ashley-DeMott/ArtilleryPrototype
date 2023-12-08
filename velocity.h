@@ -9,6 +9,7 @@
 #pragma once
 #include "acceleration.h"
 
+ // Forward declartation to friend
 class TestVelocity;
 
 // A type of TwoDValue that represents a speed
@@ -36,7 +37,7 @@ public:
     }
 
    /******************************************
-   * TwoDValue insertion
+   * Velocity insertion
    *       Display coordinates on the screen
    *****************************************/
     friend std::ostream& operator<<(std::ostream& out, const Velocity& v)
@@ -44,6 +45,7 @@ public:
        out << "" << v.computeTotalComponent(v.getMetersX(), v.getMetersY()) << " m/s";       
        return out;
     }
+
 protected:
     // Calculate the new x or y velocity using the equation v = v + a t
     static double computeVelocity(double v, double a, double t) {

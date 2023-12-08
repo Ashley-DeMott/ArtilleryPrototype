@@ -2,7 +2,7 @@
  * 1. Name:
  *      Ashley DeMott and Jason Geppelt
  * 2. Assignment Name:
- *      Lab 11: M777 Howitzer - Code Complete
+ *      Lab 11: M777 Howitzer - Final Submission
  * 3. Assignment Description:
  *      Simulate firing the M777 howitzer 15mm artillery piece
  * 4. What was the hardest part? Be as specific as possible.
@@ -15,7 +15,7 @@
  *      It was also difficult to gauge where the status info needed to
  *       be displayed, but that only took some guessing and checking.
  * 5. How long did it take for you to complete the assignment?
- *      8hours
+ *      8 hours
  *****************************************************************/
 
 #include <cassert>      // for ASSERT
@@ -89,7 +89,7 @@ void callBack(const Interface* pUI, void* p)
         // Get the Projectile's path
         list<Position>* projectilePath = pSim->getProjectile()->getPath();
 
-        // Draw the Projectile and its path  
+        // Draw the Projectile and its path
         int age = 20;
         for (Position p : (*projectilePath)) {
             gout.drawProjectile(p, 0.5 * (double)age--);
@@ -110,21 +110,21 @@ void callBack(const Interface* pUI, void* p)
         gout.setPosition(pSim->getProjectile()->getPosition());
     else
         gout.setPosition(pSim->getGun().getPosition());
-        */
+    */
 
     // If there isn't a Projectile,
     if (proj == nullptr)
     {
         // Show the Howitzer's stats
-        gout << "Gun angle: " << gunAngle.getDegrees() << " degrees\n";
+        gout << "Gun angle: " << gunAngle;
     }
     else
     {
         // Show the Projectile's stats
-        gout << "Altitude: " << pSim->getAltitude() << " meters\n";
-        gout << "Speed: " << proj->getVelocity() << "\n";
-        gout << "Distance: " << proj->getPosition().getMetersX() << " meters\n";
-        gout << "Hangtime: " << proj->getHangTime() << " s\n";
+        gout << "Altitude: " << pSim->getAltitude() << " m";
+        gout << "\nSpeed: " << proj->getVelocity();
+        gout << "\nDistance: " << proj->getPosition().getMetersX() << " m";
+        gout << "\nHangtime: " << proj->getHangTime() << " s";
     }
 }
 

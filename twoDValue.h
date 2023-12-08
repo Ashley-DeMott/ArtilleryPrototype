@@ -54,8 +54,16 @@ public:
     // Adders - adds to the existing value
     void addMetersX(double dxMeters) { setMetersX(getMetersX() + dxMeters); }
     void addMetersY(double dyMeters) { setMetersY(getMetersY() + dyMeters); }
+    void addMeters(double total, Angle a) {
+        addMetersX(computeHorizontalComponent(a.getRadians(), total));
+        addMetersY(computeVerticalComponent(a.getRadians(), total));        
+    }
     void addPixelsX(double dxPixels) { setPixelsX(getPixelsX() + dxPixels); }
     void addPixelsY(double dyPixels) { setPixelsY(getPixelsY() + dyPixels); }
+    void addPixels(double total, Angle a) {
+        addPixelsX(computeHorizontalComponent(a.getRadians(), total));
+        addPixelsY(computeVerticalComponent(a.getRadians(), total));
+    }
 
     // Deal with the ratio of meters to pixels
     void setZoom(double metersFromPixels) { this->metersFromPixels = metersFromPixels; }

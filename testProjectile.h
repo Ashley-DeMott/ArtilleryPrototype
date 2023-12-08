@@ -152,6 +152,23 @@ private:
 		// Teardown not needed
 	}
 
+	void testUpdateIncrementalThirty() {
+		// Setup
+		Projectile testProj = Projectile(Position(), Velocity(827.0, Angle(45)));
+
+		// Exercise
+		// Move the projectile 30 times
+		for (int i = 0; i < 30; i++)
+		{
+			testProj.update(0.1);
+		}
+
+		// Verify - list is only 20 items long
+		assert(testProj.path.size() == 20);
+
+		// Teardown not needed
+	}
+
 	void testGetPosition() {
 		// Setup
 		Projectile testProj;

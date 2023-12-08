@@ -28,7 +28,8 @@ public:
 	// Constructors
 	Projectile() : Projectile(Position(), Velocity()) {} // Set all attributes se the default values
 	Projectile(Position posStart, Velocity velStart) : currentPos(posStart), velocity(velStart), currentAngle(velStart.getAngle()), path({}) {}
-	
+	Projectile(const Projectile& rhs) : currentPos(rhs.currentPos), velocity(rhs.velocity), currentAngle(rhs.currentAngle), path(rhs.path) {} // Set to the values of another Projectile
+
 	// Destructor, clear list of Positions (might not be necessary?)
 	~Projectile() {	path.clear(); }
 

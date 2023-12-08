@@ -66,7 +66,6 @@ public:
 	***************************************************/
 	ostream& display(ostream& out) const;
 
-
 	/**************************************************
 		* OPERATOR OVERLOADING
 		* Overloading operators such as:
@@ -111,7 +110,12 @@ public:
 		out.setf(std::ios::showpoint);
 		out.precision(1);
 
-		out << a.getDegrees();
+		/* Show 0 - 180, then -180 to 0 */
+		if (a.getDegrees() <= 180)
+			out << a.getDegrees();
+		else
+			out << (a.getDegrees() - 360.0);
+		out << " degrees";
 	}
 
 	// Extraction from istream
