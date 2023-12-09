@@ -2,7 +2,7 @@
  * 1. Name:
  *      Ashley DeMott and Jason Geppelt
  * 2. Assignment Name:
- *      Lab 11: M777 Howitzer - Final Submission
+ *      Lab 13: M777 Howitzer - Final Submission
  * 3. Assignment Description:
  *      Simulate firing the M777 howitzer 15mm artillery piece
  * 4. What was the hardest part? Be as specific as possible.
@@ -43,9 +43,8 @@ void callBack(const Interface* pUI, void* p)
     // is the first step of every single callback function in OpenGL. 
     Simulator* pSim = (Simulator*)p;
 
-    // If the game is over,
+    // If the game is over, reset the Simulator
     if (pSim->getGameOver()) {
-        // Reset the Simulator
         pSim->reset();
     }
 
@@ -56,13 +55,13 @@ void callBack(const Interface* pUI, void* p)
     if (pUI->isLeft())
         pSim->rotateGun(-0.05);
 
-    // Move the gun by a little (depends on current angle)
-    if (pUI->isUp())
+    // Move the gun by a little (depending on current angle)
+    if (pUI->isUp())    // Move the Gun up towards 0 degrees (straight up)
         pSim->rotateGun((pSim->getGunAngle() >= M_PI ? 0.003 : -0.003)); // PI to 2PI, 0 to PI
-    if (pUI->isDown())
+    if (pUI->isDown())  // Move the Gun away from 0 degrees (straight up)
         pSim->rotateGun((pSim->getGunAngle() >= M_PI ? -0.003 : 0.003));
 
-    // Fire that gun
+    // Fire that Gun
     if (pUI->isSpace())
         pSim->shoot();
 
@@ -139,7 +138,7 @@ int WINAPI wWinMain(
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
-    // Run the tests
+    // Run all the unit tests
     testRunner();
 
     // The size of the window, meter to pixel scale
