@@ -9,8 +9,7 @@
 #pragma once
 #include "position.h"
 
-// Foward declaration for Test Cases
-class TestHowitzer;
+class TestHowitzer; // Foward declaration for unit tests
 
 class Howitzer {
 public:
@@ -20,8 +19,10 @@ public:
 	Howitzer(const Howitzer& rhs) : pos(rhs.pos), angle(rhs.angle) {} // Set to the values of another Howitzer 
 
 	// Getters
-	Position getPosition() { return pos; }
-	Angle getAngle() { return angle; }
+	Position getPosition() const { return pos; }
+	Angle getAngle() const { return angle; }
+	double getShootSpeed() const { return SHOOT_SPEED; }
+	// double getLength() const { return GUN_LENGTH_PIXELS; }
 
 	// Setters
 	void setPosition(Position p) { pos = p; }
@@ -33,4 +34,7 @@ public:
 private:
 	Position pos;	// The current Position of the Howitzer
 	Angle angle;	// The current Angle of the Howitzer
+
+	const double SHOOT_SPEED = 827.0;		// The velocity the Howitzer gives to the Projectile (m/s)
+	const double GUN_LENGTH_PIXELS = 18.0;	// The length of the Howitzer's barrel (in pixels)
 };

@@ -4,12 +4,12 @@
  * Author:
  *    Ashley DeMott
  * Summary:
- *    Stores an Velocity with x and y values, can be converted between meters and pixels
+ *    Stores a Velocity with x and y values, can be converted between meters and pixels
  ************************************************************************/
 #pragma once
 #include "acceleration.h"
 
- // Forward declartation to friend
+ // Foward declaration for unit tests
 class TestVelocity;
 
 // A type of TwoDValue that represents a speed
@@ -46,7 +46,7 @@ public:
        return out;
     }
 
-protected:
+private:
     // Calculate the new x or y velocity using the equation v = v + a t
     static double computeVelocity(double v, double a, double t) {
         return v + a * t;

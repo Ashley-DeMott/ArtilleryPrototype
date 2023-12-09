@@ -3,14 +3,6 @@
 #include "projectile.h"
 #include "howitzer.h"
 
-const double SHOOT_SPEED = 827.0; // The velocity the Howitzer gives to the Projectile (m/s)
-const double TARGET_SIZE = 10.0; // How wide the target is (in pixels)
-const double GUN_LENGTH_PIXELS = 18.0; // The length of the gun's barrel (in pixels)
-
-// The pixels away the stats should be displayed from the top right
-const double STAT_OFFSET_X = -150.0;
-const double STAT_OFFSET_Y = -20.0;
-
 /*************************************************************************
  * Simulator
  * Simulates the firing of a Projectile from a Howitzer
@@ -20,12 +12,15 @@ class Simulator
 private:
     const Position  ptUpperRight;   // size of the screen
     Position statDisplay;           // Where the stats will be drawn
-    double time;                    // amount of time since the last firing
     bool gameOver;                  // If the Simulator is finished (the target has been hit)
 
-    Ground ground;  // the ground
+    Ground ground;  // the Ground
     Howitzer gun;   // the Howitzer gun
     Projectile* p;  // the M795 Projecitle, nullptr if it hasn't been fired
+
+    // The pixels away the stats should be displayed from the top right
+    const double STAT_OFFSET_X = -150.0;
+    const double STAT_OFFSET_Y = -20.0;
 
     // Check if the Projectile is out of bounds
     bool outOfBounds() { return p->getPosition().getMetersX() < 0.0 || p->getPosition().getMetersX() > ptUpperRight.getMetersX(); }
@@ -39,14 +34,13 @@ public:
         // Reset the Simulator to its default values
         reset();
     }
-
     // Copy Constructor
-    Simulator(const Simulator& rhs) : ptUpperRight(rhs.ptUpperRight), statDisplay(rhs.statDisplay), time(rhs.time), gameOver(rhs.gameOver), ground(rhs.ground), gun(rhs.gun), p(rhs.p) {} // Set to the values of another Simulator
+    Simulator(const Simulator& rhs) : ptUpperRight(rhs.ptUpperRight), statDisplay(rhs.statDisplay), gameOver(rhs.gameOver), ground(rhs.ground), gun(rhs.gun), p(rhs.p) {} // Set to the values of another Simulator
 
     // Reset the Simulator
     void reset();
 
-    // Return a reference to the Simulator's screen size
+    // Return a reference to the Simulator's screen size (as a Position)
     const Position& getScreenPos() { return ptUpperRight; }
 
     // Return a reference to the Simulator's Ground
@@ -67,8 +61,8 @@ public:
     // Given a change in radians, rotate the Howitzer
     void rotateGun(double dRadians) { gun.rotate(dRadians); }
 
-    // Time the current Projectile has been in the air
-    double getTime() { return time; }
+    // If there is a Projectile, return it's hangtime, else -1.0
+    double getTime() { return p != nullptr ? p->getHangTime() : -1.0; }
 
     // Return the altitude of the Simulator's Projectile
     double getAltitude() { return ground.getAltitudeMeters(p->getPosition()); }
@@ -77,21 +71,16 @@ public:
     double getDistance() { return abs(gun.getPosition().getMetersX() - p->getPosition().getMetersX()); }
 
     // Get the position the stats should be displayed
-    Position& getStatDisplay() { return statDisplay; }
+    Position& getStatPosition() { return statDisplay; }
 
     // The game is over if the Target has been hit
     bool getGameOver() { return gameOver; }
 
+    // Return if the Projecile has hit the Target, first checks if out of bounds
+    bool hitTarget() { return !outOfBounds() && ground.hitTarget(p->getPosition()); }
+
     // Shoot a new projectile
     void shoot();
-
-    // Return if the Projecile has hit the Target
-    bool hitTarget() {
-        return !outOfBounds() /* The Projectile is not out of bounds */
-            && getAltitude() <= 0.0 /* The Projectile has hit the ground */
-            && p->getPosition().getPixelsX() < ground.getTarget().getPixelsX() + (TARGET_SIZE / 2.0) 
-            && p->getPosition().getPixelsX() > ground.getTarget().getPixelsX() - (TARGET_SIZE / 2.0); /* And within the horizontal bounds of the target*/
-    }
 
     // Update the simulator
     void update(double dTime);

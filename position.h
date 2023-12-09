@@ -9,7 +9,7 @@
 #pragma once
 #include "velocity.h"
 
-class TestPosition; // Forward declartion
+class TestPosition; // Foward declaration for unit tests
 
 class Position : public TwoDValue
 {

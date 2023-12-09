@@ -10,8 +10,7 @@
 #include "position.h"   // for Point
 #include "uiDraw.h"
 
-// forward declaration for the Ground unit tests
-class TestGround;
+class TestGround;  // Foward declaration for unit tests
 
  /***********************************************************
   * GROUND
@@ -38,6 +37,13 @@ public:
 
    // where the the target located?
    Position getTarget() const;
+   
+   // Has the target been hit?
+   bool hitTarget(Position& p) const {
+       return getAltitudeMeters(p) <= 0 /* Has hit the Ground (at or below 0 due to rounding) */
+           && p.getPixelsX() < getTarget().getPixelsX() + (TARGET_SIZE / 2.0) /* Within the horizontal bounds of the target*/
+           && p.getPixelsX() > getTarget().getPixelsX() - (TARGET_SIZE / 2.0);
+   }
 
    // unit test access
    friend TestGround;
@@ -47,4 +53,6 @@ private:
    int iTarget;                   // the location of the target, in pixels
    int iHowitzer;                 // the location of the howitzer, in pixels
    Position posUpperRight;        // size of the screen
+
+   const double TARGET_SIZE = 10.0;    // How wide the target is (in pixels)
 };

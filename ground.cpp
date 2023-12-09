@@ -126,6 +126,12 @@ Position Ground::getTarget() const
 
          // determine the elevation according to the slope
          ground[i] = ground[i - 1] + dy + random(-TEXTURE, TEXTURE);
+
+         // Error catching - Sometimes the Ground will generate a number
+         //                   less than 0.0, round up to 0.0 [Ashley]
+         if (ground[i] < 0.0 && ground[i])
+             ground[i] = 0.0;
+
          assert(ground[i] >= 0.0 && ground[i] <= posUpperRight.getPixelsY());
       }
    }

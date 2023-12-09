@@ -1,5 +1,7 @@
 #include "twoDValue.h"
 
+double TwoDValue::metersFromPixels = 1.0; // Assign meters from pixels
+
 /******************************************
  * TwoDValue : ASSIGNMENT
  * Assign a point

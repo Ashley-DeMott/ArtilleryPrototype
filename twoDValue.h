@@ -11,6 +11,7 @@
 #include <cmath>
 #include "angle.h"
 
+ // Foward declaration for unit tests
 class TestTwoDValue;
 class TestPosition;
 class TestVelocity;

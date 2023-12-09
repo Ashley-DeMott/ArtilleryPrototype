@@ -6,27 +6,29 @@
  * 3. Assignment Description:
  *      Simulate firing the M777 howitzer 15mm artillery piece
  * 4. What was the hardest part? Be as specific as possible.
- *      Get Elevation was mislabeled in its comments since it only gets the
- *       Ground's elevation and does not actually calculate the given
- *       Position's altitude (distance between point and the ground).
- *      At first, we wanted to create a whole new Simulator every time
- *       the target was hit, but found it much simpler to just reset
- *       the current Simulator.
- *      It was also difficult to gauge where the status info needed to
- *       be displayed, but that only took some guessing and checking.
+ *      This week wasn't too bad, it was mainly fixing minor bugs.
+          Realized the up and down arrows weren't working as in the demo. 
+ *        Now, pressing the up arrow will bring the gun back to 0 degrees.
+ *     Also, I realized that overloading the insertion operator (<<)
+ *        doesn't allow additional items to be inserted into the ostream
+ *        in the same line.
+ *     We also found that it was extraneous to have the Simulator keep
+ *       track of the Projectile's hang time, so now getHangTime() will
+ *       return the current Projectile's time, or -1.0 if there isn't one.
+ *     Also realized variables declared outside of the class were
+ *       accessible everywhere, not just within the .h file. Those variables
+ *       were moved inside the class' private section.
+ *     Something important I noticed is that the Ground class will occasionally
+ *       generate a y-level less than 0, like -0.8. This will abort the program
+ *       since this is caught by an assert, but not handled.
  * 5. How long did it take for you to complete the assignment?
- *      8 hours
+ *      10 hours
  *****************************************************************/
 
-#include <cassert>      // for ASSERT
+#include "simulator.h"  // The bulk of the program
 #include "uiInteract.h" // for INTERFACE
-#include "uiDraw.h"     // for RANDOM and DRAW*
-#include "simulator.h"  // for the Simulator, includes Ground
-#include "position.h"   // for POSITION
-#include "testRunner.h"
+#include "testRunner.h" // for TESTING
 using namespace std;
-
-const double METERS_FROM_PIXELS = 40.0;
 
 /*************************************
  * All the interesting work happens here, when
@@ -47,41 +49,41 @@ void callBack(const Interface* pUI, void* p)
         pSim->reset();
     }
 
-    //
-    // User Input
-    //
-    // Move a large amount
+    // USER INPUT
+    // Move the gun a large amount
     if (pUI->isRight())
         pSim->rotateGun(0.05);
     if (pUI->isLeft())
         pSim->rotateGun(-0.05);
 
-    // Move by a little (depends on current angle)
+    // Move the gun by a little (depends on current angle)
     if (pUI->isUp())
-        pSim->rotateGun((pSim->getGunAngle() >= 0 ? -0.003 : 0.003));
+        pSim->rotateGun((pSim->getGunAngle() >= M_PI ? 0.003 : -0.003)); // PI to 2PI, 0 to PI
     if (pUI->isDown())
-        pSim->rotateGun((pSim->getGunAngle() >= 0 ? 0.003 : -0.003));
+        pSim->rotateGun((pSim->getGunAngle() >= M_PI ? -0.003 : 0.003));
 
     // Fire that gun
     if (pUI->isSpace())
         pSim->shoot();
 
+    // UPDATE
     // Update the Simulator, advancing time by half a second.
     pSim->update(0.5);
 
+    // OUTPUT
     // Create an outstream
     ogstream gout(Position(10.0, pSim->getScreenPos().getPixelsY() - 20.0));
 
     // Draw the ground first
     pSim->drawGround(gout);
 
-    // Draw the howitzer
-    gout.drawHowitzer(pSim->getGun().getPosition(), pSim->getGunAngle(), pSim->getTime());
+    // Get the pointer to the current projectile
+    Projectile* proj = pSim->getProjectile();
 
     // If there is a Projectile,
-    if (pSim->getProjectile() != nullptr) {
+    if (proj != nullptr) {
         // Get the Projectile's path
-        list<Position>* projectilePath = pSim->getProjectile()->getPath();
+        list<Position>* projectilePath = proj->getPath();
 
         // Draw the Projectile and its path
         int age = 20;
@@ -90,26 +92,27 @@ void callBack(const Interface* pUI, void* p)
         }
     }
 
-    // Info text displayed on screen
-    Angle gunAngle = pSim->getGun().getAngle();
-    Projectile* proj = pSim->getProjectile();
+    // Draw the howitzer
+    gout.drawHowitzer(pSim->getGun().getPosition(), pSim->getGunAngle(), pSim->getTime());
 
-    gout.setPosition(pSim->getStatDisplay());
+    // Move gout near the upper right corner, set precision
+    gout.setPosition(pSim->getStatPosition());
     gout.setf(ios::fixed | ios::showpoint);
     gout.precision(1);
 
     /*
-    // Fun features: status text follows the gun or Projectile
-    if (pSim->getProjectile() != nullptr)
-        gout.setPosition(pSim->getProjectile()->getPosition());
+    // Fun feature: status text follows the gun or Projectile
+    if (proj != nullptr)
+        gout.setPosition(proj->getPosition());
     else
         gout.setPosition(pSim->getGun().getPosition());
-        */    
+    */
 
     // If there isn't a Projectile,
     if (proj == nullptr)
     {
-        // Show the Howitzer's stats
+        // Display the Gun's angle
+        Angle gunAngle = pSim->getGun().getAngle();
         gout << "Gun angle: " << gunAngle;
     }
     else
@@ -121,8 +124,6 @@ void callBack(const Interface* pUI, void* p)
         gout << "\nHangtime: " << proj->getHangTime() << " s";
     }
 }
-
-double TwoDValue::metersFromPixels = METERS_FROM_PIXELS;
 
 /*********************************
  * Initialize the simulation and set it in motion
@@ -141,8 +142,8 @@ int main(int argc, char** argv)
     // Run the tests
     testRunner();
 
-    // The size of the window
-    Position().setZoom(METERS_FROM_PIXELS); // 42 meters equals 1 pixel
+    // The size of the window, meter to pixel scale
+    Position().setZoom(40.0);
     Position ptUpperRight;
     ptUpperRight.setPixelsX(700.0);
     ptUpperRight.setPixelsY(500.0);

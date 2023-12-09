@@ -83,9 +83,7 @@ const double GRAVITY[14][2] = {
 
 // Given a 2D array (or table) of the known values and a goal, calculates the goal's value using interpolation
 template <size_t T>
-double interpolation(const double(&a)[T][2], const double goal) {
-    //assert(goal >= a[0][0] && goal < a[T - 1][0]); // Assert not outside the bounds of the array
-    
+double interpolation(const double(&a)[T][2], const double goal) {    
     // If outside the bounds of the table,   
     if (goal < a[0][0])
         return a[0][1]; // Return lower bound
@@ -137,7 +135,7 @@ void Projectile::update(double time) {
     double totalV = velocity.getTotalComponent();
 
     currentAngle = velocity.getAngle(); // Update the current angle
-    hangTime += time; // Update the current time in the air
+    addHangTime(time); // Update the current time in the air
 
     // Update acceleration
     // Calculate Acceleration due to drag

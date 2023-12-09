@@ -10,14 +10,8 @@
 #include "position.h"
 #include <list>
 
-// Forward declartation to friend
+ // Foward declaration for unit tests
 class TestProjectile;
-
-// Constant values for the Projectile
-const double M795_WEIGHT = 46.7; // kg
-const double M795_RADIUS = .15489 / 2.0; // meters
-const double M795_SURFACE_AREA = M_PI * M795_RADIUS * M795_RADIUS;
-const int PATH_SIZE = 20;
 
 class Projectile {
 
@@ -47,18 +41,20 @@ public:
 
 	// The time the projectile has been in the air
     double getHangTime() const { return hangTime; }
+	void addHangTime(double dt) { hangTime += dt; }
     void setHangTime(double newHangTime) { hangTime = newHangTime; }
 
 private:
 	Position currentPos = Position(0, 0);	// The current positions of the Projectile
 	Velocity velocity = Velocity(0, 0);		// The current speed of the Projectile
-	list<Position> path;				// The last 20 positions of the Projectile
-
 	Angle currentAngle = Angle();			// The current Angle of the Projectile
 	double hangTime = 0.0;					// How long the Projectile has been in the air
 
-	// Physical measurements
-	const double weight = M795_WEIGHT;
-	const double radius = M795_RADIUS;
-	const double surfaceArea = M795_SURFACE_AREA;
+	const int PATH_SIZE = 20;				// The max amount of Positions to keep track of
+	list<Position> path;					// The last 20 positions of the Projectile
+
+	// Physical measurements of a M795 Projectile
+	const double weight = 46.7; // kg, weight of a M795
+	const double radius = .15489 / 2.0; // meters, radius of a M795
+	const double surfaceArea = M_PI * radius * radius; // meters squared
 };
